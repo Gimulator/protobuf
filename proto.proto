@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package api;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "go/api";
+
+message Key {
+    string Type = 1;
+    string Name = 2;
+    string Namespace = 3;
+}
+
+message Message {
+    string Content = 1;
+
+    Key Key = 2;
+    Meta Meta = 3;
+}
+
+message Meta {
+    string Owner = 1;
+    google.protobuf.Timestamp CreationTime = 2;
+}
+
+service API {
+    rpc Get(Key) returns (Message);
+    rpc GetList(Key) returns (stream Message);
+    rpc Put(Message) returns (google.protobuf.Empty);
+    rpc PutList(stream Message) returns (google.protobuf.Empty);
+    rpc Delete(Key) returns (google.protobuf.Empty);
+    rpc DeleteList(Key) returns (google.protobuf.Empty);
+    rpc Watch(stream Key) returns (stream Message);
+}
