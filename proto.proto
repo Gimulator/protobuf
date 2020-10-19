@@ -29,7 +29,6 @@ service API {
     rpc Get(Key) returns (Message);
     rpc GetAll(Key) returns (stream Message);
     rpc Put(Message) returns (google.protobuf.Empty);
-    rpc PutAll(stream Message) returns (google.protobuf.Empty);
     rpc Delete(Key) returns (google.protobuf.Empty);
     rpc DeleteAll(Key) returns (google.protobuf.Empty);
     rpc Watch(stream Key) returns (stream Message);

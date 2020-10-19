@@ -21,7 +21,6 @@ type APIClient interface {
 	Get(ctx context.Context, in *Key, opts ...grpc.CallOption) (*Message, error)
 	GetAll(ctx context.Context, in *Key, opts ...grpc.CallOption) (API_GetAllClient, error)
 	Put(ctx context.Context, in *Message, opts ...grpc.CallOption) (*empty.Empty, error)
-	PutAll(ctx context.Context, opts ...grpc.CallOption) (API_PutAllClient, error)
 	Delete(ctx context.Context, in *Key, opts ...grpc.CallOption) (*empty.Empty, error)
 	DeleteAll(ctx context.Context, in *Key, opts ...grpc.CallOption) (*empty.Empty, error)
 	Watch(ctx context.Context, opts ...grpc.CallOption) (API_WatchClient, error)
@@ -85,40 +84,6 @@ func (c *aPIClient) Put(ctx context.Context, in *Message, opts ...grpc.CallOptio
 	return out, nil
 }
 
-func (c *aPIClient) PutAll(ctx context.Context, opts ...grpc.CallOption) (API_PutAllClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_API_serviceDesc.Streams[1], "/api.API/PutAll", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &aPIPutAllClient{stream}
-	return x, nil
-}
-
-type API_PutAllClient interface {
-	Send(*Message) error
-	CloseAndRecv() (*empty.Empty, error)
-	grpc.ClientStream
-}
-
-type aPIPutAllClient struct {
-	grpc.ClientStream
-}
-
-func (x *aPIPutAllClient) Send(m *Message) error {
-	return x.ClientStream.SendMsg(m)
-}
-
-func (x *aPIPutAllClient) CloseAndRecv() (*empty.Empty, error) {
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	m := new(empty.Empty)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
 func (c *aPIClient) Delete(ctx context.Context, in *Key, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
 	err := c.cc.Invoke(ctx, "/api.API/Delete", in, out, opts...)
@@ -138,7 +103,7 @@ func (c *aPIClient) DeleteAll(ctx context.Context, in *Key, opts ...grpc.CallOpt
 }
 
 func (c *aPIClient) Watch(ctx context.Context, opts ...grpc.CallOption) (API_WatchClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_API_serviceDesc.Streams[2], "/api.API/Watch", opts...)
+	stream, err := c.cc.NewStream(ctx, &_API_serviceDesc.Streams[1], "/api.API/Watch", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -175,7 +140,6 @@ type APIServer interface {
 	Get(context.Context, *Key) (*Message, error)
 	GetAll(*Key, API_GetAllServer) error
 	Put(context.Context, *Message) (*empty.Empty, error)
-	PutAll(API_PutAllServer) error
 	Delete(context.Context, *Key) (*empty.Empty, error)
 	DeleteAll(context.Context, *Key) (*empty.Empty, error)
 	Watch(API_WatchServer) error
@@ -194,9 +158,6 @@ func (UnimplementedAPIServer) GetAll(*Key, API_GetAllServer) error {
 }
 func (UnimplementedAPIServer) Put(context.Context, *Message) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Put not implemented")
-}
-func (UnimplementedAPIServer) PutAll(API_PutAllServer) error {
-	return status.Errorf(codes.Unimplemented, "method PutAll not implemented")
 }
 func (UnimplementedAPIServer) Delete(context.Context, *Key) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
@@ -275,32 +236,6 @@ func _API_Put_Handler(srv interface{}, ctx context.Context, dec func(interface{}
 		return srv.(APIServer).Put(ctx, req.(*Message))
 	}
 	return interceptor(ctx, in, info, handler)
-}
-
-func _API_PutAll_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(APIServer).PutAll(&aPIPutAllServer{stream})
-}
-
-type API_PutAllServer interface {
-	SendAndClose(*empty.Empty) error
-	Recv() (*Message, error)
-	grpc.ServerStream
-}
-
-type aPIPutAllServer struct {
-	grpc.ServerStream
-}
-
-func (x *aPIPutAllServer) SendAndClose(m *empty.Empty) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func (x *aPIPutAllServer) Recv() (*Message, error) {
-	m := new(Message)
-	if err := x.ServerStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
 }
 
 func _API_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -391,11 +326,6 @@ var _API_serviceDesc = grpc.ServiceDesc{
 			StreamName:    "GetAll",
 			Handler:       _API_GetAll_Handler,
 			ServerStreams: true,
-		},
-		{
-			StreamName:    "PutAll",
-			Handler:       _API_PutAll_Handler,
-			ClientStreams: true,
 		},
 		{
 			StreamName:    "Watch",
