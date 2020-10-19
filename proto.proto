@@ -27,10 +27,10 @@ message Meta {
 
 service API {
     rpc Get(Key) returns (Message);
-    rpc GetList(Key) returns (stream Message);
+    rpc GetAll(Key) returns (stream Message);
     rpc Put(Message) returns (google.protobuf.Empty);
-    rpc PutList(stream Message) returns (google.protobuf.Empty);
+    rpc PutAll(stream Message) returns (google.protobuf.Empty);
     rpc Delete(Key) returns (google.protobuf.Empty);
-    rpc DeleteList(Key) returns (google.protobuf.Empty);
+    rpc DeleteAll(Key) returns (google.protobuf.Empty);
     rpc Watch(stream Key) returns (stream Message);
 }

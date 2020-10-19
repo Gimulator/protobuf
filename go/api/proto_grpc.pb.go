@@ -19,11 +19,11 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type APIClient interface {
 	Get(ctx context.Context, in *Key, opts ...grpc.CallOption) (*Message, error)
-	GetList(ctx context.Context, in *Key, opts ...grpc.CallOption) (API_GetListClient, error)
+	GetAll(ctx context.Context, in *Key, opts ...grpc.CallOption) (API_GetAllClient, error)
 	Put(ctx context.Context, in *Message, opts ...grpc.CallOption) (*empty.Empty, error)
-	PutList(ctx context.Context, opts ...grpc.CallOption) (API_PutListClient, error)
+	PutAll(ctx context.Context, opts ...grpc.CallOption) (API_PutAllClient, error)
 	Delete(ctx context.Context, in *Key, opts ...grpc.CallOption) (*empty.Empty, error)
-	DeleteList(ctx context.Context, in *Key, opts ...grpc.CallOption) (*empty.Empty, error)
+	DeleteAll(ctx context.Context, in *Key, opts ...grpc.CallOption) (*empty.Empty, error)
 	Watch(ctx context.Context, opts ...grpc.CallOption) (API_WatchClient, error)
 }
 
@@ -44,12 +44,12 @@ func (c *aPIClient) Get(ctx context.Context, in *Key, opts ...grpc.CallOption) (
 	return out, nil
 }
 
-func (c *aPIClient) GetList(ctx context.Context, in *Key, opts ...grpc.CallOption) (API_GetListClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_API_serviceDesc.Streams[0], "/api.API/GetList", opts...)
+func (c *aPIClient) GetAll(ctx context.Context, in *Key, opts ...grpc.CallOption) (API_GetAllClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_API_serviceDesc.Streams[0], "/api.API/GetAll", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &aPIGetListClient{stream}
+	x := &aPIGetAllClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -59,16 +59,16 @@ func (c *aPIClient) GetList(ctx context.Context, in *Key, opts ...grpc.CallOptio
 	return x, nil
 }
 
-type API_GetListClient interface {
+type API_GetAllClient interface {
 	Recv() (*Message, error)
 	grpc.ClientStream
 }
 
-type aPIGetListClient struct {
+type aPIGetAllClient struct {
 	grpc.ClientStream
 }
 
-func (x *aPIGetListClient) Recv() (*Message, error) {
+func (x *aPIGetAllClient) Recv() (*Message, error) {
 	m := new(Message)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -85,30 +85,30 @@ func (c *aPIClient) Put(ctx context.Context, in *Message, opts ...grpc.CallOptio
 	return out, nil
 }
 
-func (c *aPIClient) PutList(ctx context.Context, opts ...grpc.CallOption) (API_PutListClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_API_serviceDesc.Streams[1], "/api.API/PutList", opts...)
+func (c *aPIClient) PutAll(ctx context.Context, opts ...grpc.CallOption) (API_PutAllClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_API_serviceDesc.Streams[1], "/api.API/PutAll", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &aPIPutListClient{stream}
+	x := &aPIPutAllClient{stream}
 	return x, nil
 }
 
-type API_PutListClient interface {
+type API_PutAllClient interface {
 	Send(*Message) error
 	CloseAndRecv() (*empty.Empty, error)
 	grpc.ClientStream
 }
 
-type aPIPutListClient struct {
+type aPIPutAllClient struct {
 	grpc.ClientStream
 }
 
-func (x *aPIPutListClient) Send(m *Message) error {
+func (x *aPIPutAllClient) Send(m *Message) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *aPIPutListClient) CloseAndRecv() (*empty.Empty, error) {
+func (x *aPIPutAllClient) CloseAndRecv() (*empty.Empty, error) {
 	if err := x.ClientStream.CloseSend(); err != nil {
 		return nil, err
 	}
@@ -128,9 +128,9 @@ func (c *aPIClient) Delete(ctx context.Context, in *Key, opts ...grpc.CallOption
 	return out, nil
 }
 
-func (c *aPIClient) DeleteList(ctx context.Context, in *Key, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *aPIClient) DeleteAll(ctx context.Context, in *Key, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/api.API/DeleteList", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.API/DeleteAll", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -173,11 +173,11 @@ func (x *aPIWatchClient) Recv() (*Message, error) {
 // for forward compatibility
 type APIServer interface {
 	Get(context.Context, *Key) (*Message, error)
-	GetList(*Key, API_GetListServer) error
+	GetAll(*Key, API_GetAllServer) error
 	Put(context.Context, *Message) (*empty.Empty, error)
-	PutList(API_PutListServer) error
+	PutAll(API_PutAllServer) error
 	Delete(context.Context, *Key) (*empty.Empty, error)
-	DeleteList(context.Context, *Key) (*empty.Empty, error)
+	DeleteAll(context.Context, *Key) (*empty.Empty, error)
 	Watch(API_WatchServer) error
 	mustEmbedUnimplementedAPIServer()
 }
@@ -189,20 +189,20 @@ type UnimplementedAPIServer struct {
 func (UnimplementedAPIServer) Get(context.Context, *Key) (*Message, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (UnimplementedAPIServer) GetList(*Key, API_GetListServer) error {
-	return status.Errorf(codes.Unimplemented, "method GetList not implemented")
+func (UnimplementedAPIServer) GetAll(*Key, API_GetAllServer) error {
+	return status.Errorf(codes.Unimplemented, "method GetAll not implemented")
 }
 func (UnimplementedAPIServer) Put(context.Context, *Message) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Put not implemented")
 }
-func (UnimplementedAPIServer) PutList(API_PutListServer) error {
-	return status.Errorf(codes.Unimplemented, "method PutList not implemented")
+func (UnimplementedAPIServer) PutAll(API_PutAllServer) error {
+	return status.Errorf(codes.Unimplemented, "method PutAll not implemented")
 }
 func (UnimplementedAPIServer) Delete(context.Context, *Key) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
-func (UnimplementedAPIServer) DeleteList(context.Context, *Key) (*empty.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteList not implemented")
+func (UnimplementedAPIServer) DeleteAll(context.Context, *Key) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteAll not implemented")
 }
 func (UnimplementedAPIServer) Watch(API_WatchServer) error {
 	return status.Errorf(codes.Unimplemented, "method Watch not implemented")
@@ -238,24 +238,24 @@ func _API_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _API_GetList_Handler(srv interface{}, stream grpc.ServerStream) error {
+func _API_GetAll_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(Key)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(APIServer).GetList(m, &aPIGetListServer{stream})
+	return srv.(APIServer).GetAll(m, &aPIGetAllServer{stream})
 }
 
-type API_GetListServer interface {
+type API_GetAllServer interface {
 	Send(*Message) error
 	grpc.ServerStream
 }
 
-type aPIGetListServer struct {
+type aPIGetAllServer struct {
 	grpc.ServerStream
 }
 
-func (x *aPIGetListServer) Send(m *Message) error {
+func (x *aPIGetAllServer) Send(m *Message) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -277,25 +277,25 @@ func _API_Put_Handler(srv interface{}, ctx context.Context, dec func(interface{}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _API_PutList_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(APIServer).PutList(&aPIPutListServer{stream})
+func _API_PutAll_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(APIServer).PutAll(&aPIPutAllServer{stream})
 }
 
-type API_PutListServer interface {
+type API_PutAllServer interface {
 	SendAndClose(*empty.Empty) error
 	Recv() (*Message, error)
 	grpc.ServerStream
 }
 
-type aPIPutListServer struct {
+type aPIPutAllServer struct {
 	grpc.ServerStream
 }
 
-func (x *aPIPutListServer) SendAndClose(m *empty.Empty) error {
+func (x *aPIPutAllServer) SendAndClose(m *empty.Empty) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *aPIPutListServer) Recv() (*Message, error) {
+func (x *aPIPutAllServer) Recv() (*Message, error) {
 	m := new(Message)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -321,20 +321,20 @@ func _API_Delete_Handler(srv interface{}, ctx context.Context, dec func(interfac
 	return interceptor(ctx, in, info, handler)
 }
 
-func _API_DeleteList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _API_DeleteAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Key)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(APIServer).DeleteList(ctx, in)
+		return srv.(APIServer).DeleteAll(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.API/DeleteList",
+		FullMethod: "/api.API/DeleteAll",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(APIServer).DeleteList(ctx, req.(*Key))
+		return srv.(APIServer).DeleteAll(ctx, req.(*Key))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -382,19 +382,19 @@ var _API_serviceDesc = grpc.ServiceDesc{
 			Handler:    _API_Delete_Handler,
 		},
 		{
-			MethodName: "DeleteList",
-			Handler:    _API_DeleteList_Handler,
+			MethodName: "DeleteAll",
+			Handler:    _API_DeleteAll_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "GetList",
-			Handler:       _API_GetList_Handler,
+			StreamName:    "GetAll",
+			Handler:       _API_GetAll_Handler,
 			ServerStreams: true,
 		},
 		{
-			StreamName:    "PutList",
-			Handler:       _API_PutList_Handler,
+			StreamName:    "PutAll",
+			Handler:       _API_PutAll_Handler,
 			ClientStreams: true,
 		},
 		{
