@@ -23,7 +23,7 @@ type APIClient interface {
 	Put(ctx context.Context, in *Message, opts ...grpc.CallOption) (*empty.Empty, error)
 	Delete(ctx context.Context, in *Key, opts ...grpc.CallOption) (*empty.Empty, error)
 	DeleteAll(ctx context.Context, in *Key, opts ...grpc.CallOption) (*empty.Empty, error)
-	Watch(ctx context.Context, opts ...grpc.CallOption) (API_WatchClient, error)
+	Watch(ctx context.Context, in *Key, opts ...grpc.CallOption) (API_WatchClient, error)
 }
 
 type aPIClient struct {
@@ -102,27 +102,28 @@ func (c *aPIClient) DeleteAll(ctx context.Context, in *Key, opts ...grpc.CallOpt
 	return out, nil
 }
 
-func (c *aPIClient) Watch(ctx context.Context, opts ...grpc.CallOption) (API_WatchClient, error) {
+func (c *aPIClient) Watch(ctx context.Context, in *Key, opts ...grpc.CallOption) (API_WatchClient, error) {
 	stream, err := c.cc.NewStream(ctx, &_API_serviceDesc.Streams[1], "/api.API/Watch", opts...)
 	if err != nil {
 		return nil, err
 	}
 	x := &aPIWatchClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
 	return x, nil
 }
 
 type API_WatchClient interface {
-	Send(*Key) error
 	Recv() (*Message, error)
 	grpc.ClientStream
 }
 
 type aPIWatchClient struct {
 	grpc.ClientStream
-}
-
-func (x *aPIWatchClient) Send(m *Key) error {
-	return x.ClientStream.SendMsg(m)
 }
 
 func (x *aPIWatchClient) Recv() (*Message, error) {
@@ -142,7 +143,7 @@ type APIServer interface {
 	Put(context.Context, *Message) (*empty.Empty, error)
 	Delete(context.Context, *Key) (*empty.Empty, error)
 	DeleteAll(context.Context, *Key) (*empty.Empty, error)
-	Watch(API_WatchServer) error
+	Watch(*Key, API_WatchServer) error
 	mustEmbedUnimplementedAPIServer()
 }
 
@@ -165,7 +166,7 @@ func (UnimplementedAPIServer) Delete(context.Context, *Key) (*empty.Empty, error
 func (UnimplementedAPIServer) DeleteAll(context.Context, *Key) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAll not implemented")
 }
-func (UnimplementedAPIServer) Watch(API_WatchServer) error {
+func (UnimplementedAPIServer) Watch(*Key, API_WatchServer) error {
 	return status.Errorf(codes.Unimplemented, "method Watch not implemented")
 }
 func (UnimplementedAPIServer) mustEmbedUnimplementedAPIServer() {}
@@ -275,12 +276,15 @@ func _API_DeleteAll_Handler(srv interface{}, ctx context.Context, dec func(inter
 }
 
 func _API_Watch_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(APIServer).Watch(&aPIWatchServer{stream})
+	m := new(Key)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(APIServer).Watch(m, &aPIWatchServer{stream})
 }
 
 type API_WatchServer interface {
 	Send(*Message) error
-	Recv() (*Key, error)
 	grpc.ServerStream
 }
 
@@ -290,14 +294,6 @@ type aPIWatchServer struct {
 
 func (x *aPIWatchServer) Send(m *Message) error {
 	return x.ServerStream.SendMsg(m)
-}
-
-func (x *aPIWatchServer) Recv() (*Key, error) {
-	m := new(Key)
-	if err := x.ServerStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
 }
 
 var _API_serviceDesc = grpc.ServiceDesc{
@@ -331,7 +327,6 @@ var _API_serviceDesc = grpc.ServiceDesc{
 			StreamName:    "Watch",
 			Handler:       _API_Watch_Handler,
 			ServerStreams: true,
-			ClientStreams: true,
 		},
 	},
 	Metadata: "proto.proto",
