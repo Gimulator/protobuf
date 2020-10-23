@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\006go/api',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0bproto.proto\x12\x03\x61pi\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"4\n\x03Key\x12\x0c\n\x04Type\x18\x01 \x01(\t\x12\x0c\n\x04Name\x18\x02 \x01(\t\x12\x11\n\tNamespace\x18\x03 \x01(\t\"J\n\x07Message\x12\x0f\n\x07\x43ontent\x18\x01 \x01(\t\x12\x15\n\x03Key\x18\x02 \x01(\x0b\x32\x08.api.Key\x12\x17\n\x04Meta\x18\x03 \x01(\x0b\x32\t.api.Meta\"G\n\x04Meta\x12\r\n\x05Owner\x18\x01 \x01(\t\x12\x30\n\x0c\x43reationTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp2\xf3\x01\n\x03\x41PI\x12\x1d\n\x03Get\x12\x08.api.Key\x1a\x0c.api.Message\x12\"\n\x06GetAll\x12\x08.api.Key\x1a\x0c.api.Message0\x01\x12+\n\x03Put\x12\x0c.api.Message\x1a\x16.google.protobuf.Empty\x12*\n\x06\x44\x65lete\x12\x08.api.Key\x1a\x16.google.protobuf.Empty\x12-\n\tDeleteAll\x12\x08.api.Key\x1a\x16.google.protobuf.Empty\x12!\n\x05Watch\x12\x08.api.Key\x1a\x0c.api.Message0\x01\x42\x08Z\x06go/apib\x06proto3'
+  serialized_pb=b'\n\x0bproto.proto\x12\x03\x61pi\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"4\n\x03Key\x12\x0c\n\x04Type\x18\x01 \x01(\t\x12\x0c\n\x04Name\x18\x02 \x01(\t\x12\x11\n\tNamespace\x18\x03 \x01(\t\"J\n\x07Message\x12\x0f\n\x07\x43ontent\x18\x01 \x01(\t\x12\x15\n\x03Key\x18\x02 \x01(\x0b\x32\x08.api.Key\x12\x17\n\x04Meta\x18\x03 \x01(\x0b\x32\t.api.Meta\"U\n\x04Meta\x12\r\n\x05Owner\x18\x01 \x01(\t\x12\x30\n\x0c\x43reationTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04Role\x18\x03 \x01(\t2\xf3\x01\n\x03\x41PI\x12\x1d\n\x03Get\x12\x08.api.Key\x1a\x0c.api.Message\x12\"\n\x06GetAll\x12\x08.api.Key\x1a\x0c.api.Message0\x01\x12+\n\x03Put\x12\x0c.api.Message\x1a\x16.google.protobuf.Empty\x12*\n\x06\x44\x65lete\x12\x08.api.Key\x1a\x16.google.protobuf.Empty\x12-\n\tDeleteAll\x12\x08.api.Key\x1a\x16.google.protobuf.Empty\x12!\n\x05Watch\x12\x08.api.Key\x1a\x0c.api.Message0\x01\x42\x08Z\x06go/apib\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,])
 
@@ -142,6 +142,13 @@ _META = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='Role', full_name='api.Meta.Role', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -155,7 +162,7 @@ _META = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=212,
-  serialized_end=283,
+  serialized_end=297,
 )
 
 _MESSAGE.fields_by_name['Key'].message_type = _KEY
@@ -197,8 +204,8 @@ _API = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=286,
-  serialized_end=529,
+  serialized_start=300,
+  serialized_end=543,
   methods=[
   _descriptor.MethodDescriptor(
     name='Get',

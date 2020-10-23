@@ -23,6 +23,7 @@ message Message {
 message Meta {
     string Owner = 1;
     google.protobuf.Timestamp CreationTime = 2;
+    string Role = 3;
 }
 
 service API {
