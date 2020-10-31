@@ -14,41 +14,41 @@ import (
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion7
 
-// APIClient is the client API for API service.
+// MessageAPIClient is the client API for MessageAPI service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type APIClient interface {
+type MessageAPIClient interface {
 	Get(ctx context.Context, in *Key, opts ...grpc.CallOption) (*Message, error)
-	GetAll(ctx context.Context, in *Key, opts ...grpc.CallOption) (API_GetAllClient, error)
+	GetAll(ctx context.Context, in *Key, opts ...grpc.CallOption) (MessageAPI_GetAllClient, error)
 	Put(ctx context.Context, in *Message, opts ...grpc.CallOption) (*empty.Empty, error)
 	Delete(ctx context.Context, in *Key, opts ...grpc.CallOption) (*empty.Empty, error)
 	DeleteAll(ctx context.Context, in *Key, opts ...grpc.CallOption) (*empty.Empty, error)
-	Watch(ctx context.Context, in *Key, opts ...grpc.CallOption) (API_WatchClient, error)
+	Watch(ctx context.Context, in *Key, opts ...grpc.CallOption) (MessageAPI_WatchClient, error)
 }
 
-type aPIClient struct {
+type messageAPIClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewAPIClient(cc grpc.ClientConnInterface) APIClient {
-	return &aPIClient{cc}
+func NewMessageAPIClient(cc grpc.ClientConnInterface) MessageAPIClient {
+	return &messageAPIClient{cc}
 }
 
-func (c *aPIClient) Get(ctx context.Context, in *Key, opts ...grpc.CallOption) (*Message, error) {
+func (c *messageAPIClient) Get(ctx context.Context, in *Key, opts ...grpc.CallOption) (*Message, error) {
 	out := new(Message)
-	err := c.cc.Invoke(ctx, "/api.API/Get", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.MessageAPI/Get", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *aPIClient) GetAll(ctx context.Context, in *Key, opts ...grpc.CallOption) (API_GetAllClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_API_serviceDesc.Streams[0], "/api.API/GetAll", opts...)
+func (c *messageAPIClient) GetAll(ctx context.Context, in *Key, opts ...grpc.CallOption) (MessageAPI_GetAllClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_MessageAPI_serviceDesc.Streams[0], "/api.MessageAPI/GetAll", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &aPIGetAllClient{stream}
+	x := &messageAPIGetAllClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -58,16 +58,16 @@ func (c *aPIClient) GetAll(ctx context.Context, in *Key, opts ...grpc.CallOption
 	return x, nil
 }
 
-type API_GetAllClient interface {
+type MessageAPI_GetAllClient interface {
 	Recv() (*Message, error)
 	grpc.ClientStream
 }
 
-type aPIGetAllClient struct {
+type messageAPIGetAllClient struct {
 	grpc.ClientStream
 }
 
-func (x *aPIGetAllClient) Recv() (*Message, error) {
+func (x *messageAPIGetAllClient) Recv() (*Message, error) {
 	m := new(Message)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -75,39 +75,39 @@ func (x *aPIGetAllClient) Recv() (*Message, error) {
 	return m, nil
 }
 
-func (c *aPIClient) Put(ctx context.Context, in *Message, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *messageAPIClient) Put(ctx context.Context, in *Message, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/api.API/Put", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.MessageAPI/Put", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *aPIClient) Delete(ctx context.Context, in *Key, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *messageAPIClient) Delete(ctx context.Context, in *Key, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/api.API/Delete", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.MessageAPI/Delete", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *aPIClient) DeleteAll(ctx context.Context, in *Key, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *messageAPIClient) DeleteAll(ctx context.Context, in *Key, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/api.API/DeleteAll", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.MessageAPI/DeleteAll", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *aPIClient) Watch(ctx context.Context, in *Key, opts ...grpc.CallOption) (API_WatchClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_API_serviceDesc.Streams[1], "/api.API/Watch", opts...)
+func (c *messageAPIClient) Watch(ctx context.Context, in *Key, opts ...grpc.CallOption) (MessageAPI_WatchClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_MessageAPI_serviceDesc.Streams[1], "/api.MessageAPI/Watch", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &aPIWatchClient{stream}
+	x := &messageAPIWatchClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -117,16 +117,16 @@ func (c *aPIClient) Watch(ctx context.Context, in *Key, opts ...grpc.CallOption)
 	return x, nil
 }
 
-type API_WatchClient interface {
+type MessageAPI_WatchClient interface {
 	Recv() (*Message, error)
 	grpc.ClientStream
 }
 
-type aPIWatchClient struct {
+type messageAPIWatchClient struct {
 	grpc.ClientStream
 }
 
-func (x *aPIWatchClient) Recv() (*Message, error) {
+func (x *messageAPIWatchClient) Recv() (*Message, error) {
 	m := new(Message)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -134,200 +134,684 @@ func (x *aPIWatchClient) Recv() (*Message, error) {
 	return m, nil
 }
 
-// APIServer is the server API for API service.
-// All implementations must embed UnimplementedAPIServer
+// MessageAPIServer is the server API for MessageAPI service.
+// All implementations must embed UnimplementedMessageAPIServer
 // for forward compatibility
-type APIServer interface {
+type MessageAPIServer interface {
 	Get(context.Context, *Key) (*Message, error)
-	GetAll(*Key, API_GetAllServer) error
+	GetAll(*Key, MessageAPI_GetAllServer) error
 	Put(context.Context, *Message) (*empty.Empty, error)
 	Delete(context.Context, *Key) (*empty.Empty, error)
 	DeleteAll(context.Context, *Key) (*empty.Empty, error)
-	Watch(*Key, API_WatchServer) error
-	mustEmbedUnimplementedAPIServer()
+	Watch(*Key, MessageAPI_WatchServer) error
+	mustEmbedUnimplementedMessageAPIServer()
 }
 
-// UnimplementedAPIServer must be embedded to have forward compatible implementations.
-type UnimplementedAPIServer struct {
+// UnimplementedMessageAPIServer must be embedded to have forward compatible implementations.
+type UnimplementedMessageAPIServer struct {
 }
 
-func (UnimplementedAPIServer) Get(context.Context, *Key) (*Message, error) {
+func (UnimplementedMessageAPIServer) Get(context.Context, *Key) (*Message, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (UnimplementedAPIServer) GetAll(*Key, API_GetAllServer) error {
+func (UnimplementedMessageAPIServer) GetAll(*Key, MessageAPI_GetAllServer) error {
 	return status.Errorf(codes.Unimplemented, "method GetAll not implemented")
 }
-func (UnimplementedAPIServer) Put(context.Context, *Message) (*empty.Empty, error) {
+func (UnimplementedMessageAPIServer) Put(context.Context, *Message) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Put not implemented")
 }
-func (UnimplementedAPIServer) Delete(context.Context, *Key) (*empty.Empty, error) {
+func (UnimplementedMessageAPIServer) Delete(context.Context, *Key) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
-func (UnimplementedAPIServer) DeleteAll(context.Context, *Key) (*empty.Empty, error) {
+func (UnimplementedMessageAPIServer) DeleteAll(context.Context, *Key) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAll not implemented")
 }
-func (UnimplementedAPIServer) Watch(*Key, API_WatchServer) error {
+func (UnimplementedMessageAPIServer) Watch(*Key, MessageAPI_WatchServer) error {
 	return status.Errorf(codes.Unimplemented, "method Watch not implemented")
 }
-func (UnimplementedAPIServer) mustEmbedUnimplementedAPIServer() {}
+func (UnimplementedMessageAPIServer) mustEmbedUnimplementedMessageAPIServer() {}
 
-// UnsafeAPIServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to APIServer will
+// UnsafeMessageAPIServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to MessageAPIServer will
 // result in compilation errors.
-type UnsafeAPIServer interface {
-	mustEmbedUnimplementedAPIServer()
+type UnsafeMessageAPIServer interface {
+	mustEmbedUnimplementedMessageAPIServer()
 }
 
-func RegisterAPIServer(s *grpc.Server, srv APIServer) {
-	s.RegisterService(&_API_serviceDesc, srv)
+func RegisterMessageAPIServer(s *grpc.Server, srv MessageAPIServer) {
+	s.RegisterService(&_MessageAPI_serviceDesc, srv)
 }
 
-func _API_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _MessageAPI_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Key)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(APIServer).Get(ctx, in)
+		return srv.(MessageAPIServer).Get(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.API/Get",
+		FullMethod: "/api.MessageAPI/Get",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(APIServer).Get(ctx, req.(*Key))
+		return srv.(MessageAPIServer).Get(ctx, req.(*Key))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _API_GetAll_Handler(srv interface{}, stream grpc.ServerStream) error {
+func _MessageAPI_GetAll_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(Key)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(APIServer).GetAll(m, &aPIGetAllServer{stream})
+	return srv.(MessageAPIServer).GetAll(m, &messageAPIGetAllServer{stream})
 }
 
-type API_GetAllServer interface {
+type MessageAPI_GetAllServer interface {
 	Send(*Message) error
 	grpc.ServerStream
 }
 
-type aPIGetAllServer struct {
+type messageAPIGetAllServer struct {
 	grpc.ServerStream
 }
 
-func (x *aPIGetAllServer) Send(m *Message) error {
+func (x *messageAPIGetAllServer) Send(m *Message) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func _API_Put_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _MessageAPI_Put_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Message)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(APIServer).Put(ctx, in)
+		return srv.(MessageAPIServer).Put(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.API/Put",
+		FullMethod: "/api.MessageAPI/Put",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(APIServer).Put(ctx, req.(*Message))
+		return srv.(MessageAPIServer).Put(ctx, req.(*Message))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _API_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _MessageAPI_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Key)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(APIServer).Delete(ctx, in)
+		return srv.(MessageAPIServer).Delete(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.API/Delete",
+		FullMethod: "/api.MessageAPI/Delete",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(APIServer).Delete(ctx, req.(*Key))
+		return srv.(MessageAPIServer).Delete(ctx, req.(*Key))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _API_DeleteAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _MessageAPI_DeleteAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Key)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(APIServer).DeleteAll(ctx, in)
+		return srv.(MessageAPIServer).DeleteAll(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.API/DeleteAll",
+		FullMethod: "/api.MessageAPI/DeleteAll",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(APIServer).DeleteAll(ctx, req.(*Key))
+		return srv.(MessageAPIServer).DeleteAll(ctx, req.(*Key))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _API_Watch_Handler(srv interface{}, stream grpc.ServerStream) error {
+func _MessageAPI_Watch_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(Key)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(APIServer).Watch(m, &aPIWatchServer{stream})
+	return srv.(MessageAPIServer).Watch(m, &messageAPIWatchServer{stream})
 }
 
-type API_WatchServer interface {
+type MessageAPI_WatchServer interface {
 	Send(*Message) error
 	grpc.ServerStream
 }
 
-type aPIWatchServer struct {
+type messageAPIWatchServer struct {
 	grpc.ServerStream
 }
 
-func (x *aPIWatchServer) Send(m *Message) error {
+func (x *messageAPIWatchServer) Send(m *Message) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-var _API_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "api.API",
-	HandlerType: (*APIServer)(nil),
+var _MessageAPI_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "api.MessageAPI",
+	HandlerType: (*MessageAPIServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Get",
-			Handler:    _API_Get_Handler,
+			Handler:    _MessageAPI_Get_Handler,
 		},
 		{
 			MethodName: "Put",
-			Handler:    _API_Put_Handler,
+			Handler:    _MessageAPI_Put_Handler,
 		},
 		{
 			MethodName: "Delete",
-			Handler:    _API_Delete_Handler,
+			Handler:    _MessageAPI_Delete_Handler,
 		},
 		{
 			MethodName: "DeleteAll",
-			Handler:    _API_DeleteAll_Handler,
+			Handler:    _MessageAPI_DeleteAll_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "GetAll",
-			Handler:       _API_GetAll_Handler,
+			Handler:       _MessageAPI_GetAll_Handler,
 			ServerStreams: true,
 		},
 		{
 			StreamName:    "Watch",
-			Handler:       _API_Watch_Handler,
+			Handler:       _MessageAPI_Watch_Handler,
 			ServerStreams: true,
 		},
 	},
+	Metadata: "proto.proto",
+}
+
+// DirectorAPIClient is the client API for DirectorAPI service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type DirectorAPIClient interface {
+	GetActorWithID(ctx context.Context, in *ID, opts ...grpc.CallOption) (*Actor, error)
+	GetActorsWithRole(ctx context.Context, in *Role, opts ...grpc.CallOption) (DirectorAPI_GetActorsWithRoleClient, error)
+	GetAllActors(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (DirectorAPI_GetAllActorsClient, error)
+	PutResult(ctx context.Context, in *Result, opts ...grpc.CallOption) (*empty.Empty, error)
+}
+
+type directorAPIClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewDirectorAPIClient(cc grpc.ClientConnInterface) DirectorAPIClient {
+	return &directorAPIClient{cc}
+}
+
+func (c *directorAPIClient) GetActorWithID(ctx context.Context, in *ID, opts ...grpc.CallOption) (*Actor, error) {
+	out := new(Actor)
+	err := c.cc.Invoke(ctx, "/api.DirectorAPI/GetActorWithID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *directorAPIClient) GetActorsWithRole(ctx context.Context, in *Role, opts ...grpc.CallOption) (DirectorAPI_GetActorsWithRoleClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_DirectorAPI_serviceDesc.Streams[0], "/api.DirectorAPI/GetActorsWithRole", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &directorAPIGetActorsWithRoleClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type DirectorAPI_GetActorsWithRoleClient interface {
+	Recv() (*Actor, error)
+	grpc.ClientStream
+}
+
+type directorAPIGetActorsWithRoleClient struct {
+	grpc.ClientStream
+}
+
+func (x *directorAPIGetActorsWithRoleClient) Recv() (*Actor, error) {
+	m := new(Actor)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *directorAPIClient) GetAllActors(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (DirectorAPI_GetAllActorsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_DirectorAPI_serviceDesc.Streams[1], "/api.DirectorAPI/GetAllActors", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &directorAPIGetAllActorsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type DirectorAPI_GetAllActorsClient interface {
+	Recv() (*Actor, error)
+	grpc.ClientStream
+}
+
+type directorAPIGetAllActorsClient struct {
+	grpc.ClientStream
+}
+
+func (x *directorAPIGetAllActorsClient) Recv() (*Actor, error) {
+	m := new(Actor)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *directorAPIClient) PutResult(ctx context.Context, in *Result, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/api.DirectorAPI/PutResult", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// DirectorAPIServer is the server API for DirectorAPI service.
+// All implementations must embed UnimplementedDirectorAPIServer
+// for forward compatibility
+type DirectorAPIServer interface {
+	GetActorWithID(context.Context, *ID) (*Actor, error)
+	GetActorsWithRole(*Role, DirectorAPI_GetActorsWithRoleServer) error
+	GetAllActors(*empty.Empty, DirectorAPI_GetAllActorsServer) error
+	PutResult(context.Context, *Result) (*empty.Empty, error)
+	mustEmbedUnimplementedDirectorAPIServer()
+}
+
+// UnimplementedDirectorAPIServer must be embedded to have forward compatible implementations.
+type UnimplementedDirectorAPIServer struct {
+}
+
+func (UnimplementedDirectorAPIServer) GetActorWithID(context.Context, *ID) (*Actor, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetActorWithID not implemented")
+}
+func (UnimplementedDirectorAPIServer) GetActorsWithRole(*Role, DirectorAPI_GetActorsWithRoleServer) error {
+	return status.Errorf(codes.Unimplemented, "method GetActorsWithRole not implemented")
+}
+func (UnimplementedDirectorAPIServer) GetAllActors(*empty.Empty, DirectorAPI_GetAllActorsServer) error {
+	return status.Errorf(codes.Unimplemented, "method GetAllActors not implemented")
+}
+func (UnimplementedDirectorAPIServer) PutResult(context.Context, *Result) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PutResult not implemented")
+}
+func (UnimplementedDirectorAPIServer) mustEmbedUnimplementedDirectorAPIServer() {}
+
+// UnsafeDirectorAPIServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to DirectorAPIServer will
+// result in compilation errors.
+type UnsafeDirectorAPIServer interface {
+	mustEmbedUnimplementedDirectorAPIServer()
+}
+
+func RegisterDirectorAPIServer(s *grpc.Server, srv DirectorAPIServer) {
+	s.RegisterService(&_DirectorAPI_serviceDesc, srv)
+}
+
+func _DirectorAPI_GetActorWithID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DirectorAPIServer).GetActorWithID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.DirectorAPI/GetActorWithID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DirectorAPIServer).GetActorWithID(ctx, req.(*ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DirectorAPI_GetActorsWithRole_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(Role)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(DirectorAPIServer).GetActorsWithRole(m, &directorAPIGetActorsWithRoleServer{stream})
+}
+
+type DirectorAPI_GetActorsWithRoleServer interface {
+	Send(*Actor) error
+	grpc.ServerStream
+}
+
+type directorAPIGetActorsWithRoleServer struct {
+	grpc.ServerStream
+}
+
+func (x *directorAPIGetActorsWithRoleServer) Send(m *Actor) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _DirectorAPI_GetAllActors_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(empty.Empty)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(DirectorAPIServer).GetAllActors(m, &directorAPIGetAllActorsServer{stream})
+}
+
+type DirectorAPI_GetAllActorsServer interface {
+	Send(*Actor) error
+	grpc.ServerStream
+}
+
+type directorAPIGetAllActorsServer struct {
+	grpc.ServerStream
+}
+
+func (x *directorAPIGetAllActorsServer) Send(m *Actor) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _DirectorAPI_PutResult_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Result)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DirectorAPIServer).PutResult(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.DirectorAPI/PutResult",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DirectorAPIServer).PutResult(ctx, req.(*Result))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _DirectorAPI_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "api.DirectorAPI",
+	HandlerType: (*DirectorAPIServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetActorWithID",
+			Handler:    _DirectorAPI_GetActorWithID_Handler,
+		},
+		{
+			MethodName: "PutResult",
+			Handler:    _DirectorAPI_PutResult_Handler,
+		},
+	},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "GetActorsWithRole",
+			Handler:       _DirectorAPI_GetActorsWithRole_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "GetAllActors",
+			Handler:       _DirectorAPI_GetAllActors_Handler,
+			ServerStreams: true,
+		},
+	},
+	Metadata: "proto.proto",
+}
+
+// OperatorAPIClient is the client API for OperatorAPI service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type OperatorAPIClient interface {
+	SetStatusUnknown(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error)
+	SetStatusRunning(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error)
+	SetStatusFailed(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error)
+}
+
+type operatorAPIClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewOperatorAPIClient(cc grpc.ClientConnInterface) OperatorAPIClient {
+	return &operatorAPIClient{cc}
+}
+
+func (c *operatorAPIClient) SetStatusUnknown(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/api.OperatorAPI/SetStatusUnknown", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *operatorAPIClient) SetStatusRunning(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/api.OperatorAPI/SetStatusRunning", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *operatorAPIClient) SetStatusFailed(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/api.OperatorAPI/SetStatusFailed", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// OperatorAPIServer is the server API for OperatorAPI service.
+// All implementations must embed UnimplementedOperatorAPIServer
+// for forward compatibility
+type OperatorAPIServer interface {
+	SetStatusUnknown(context.Context, *ID) (*empty.Empty, error)
+	SetStatusRunning(context.Context, *ID) (*empty.Empty, error)
+	SetStatusFailed(context.Context, *ID) (*empty.Empty, error)
+	mustEmbedUnimplementedOperatorAPIServer()
+}
+
+// UnimplementedOperatorAPIServer must be embedded to have forward compatible implementations.
+type UnimplementedOperatorAPIServer struct {
+}
+
+func (UnimplementedOperatorAPIServer) SetStatusUnknown(context.Context, *ID) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetStatusUnknown not implemented")
+}
+func (UnimplementedOperatorAPIServer) SetStatusRunning(context.Context, *ID) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetStatusRunning not implemented")
+}
+func (UnimplementedOperatorAPIServer) SetStatusFailed(context.Context, *ID) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetStatusFailed not implemented")
+}
+func (UnimplementedOperatorAPIServer) mustEmbedUnimplementedOperatorAPIServer() {}
+
+// UnsafeOperatorAPIServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to OperatorAPIServer will
+// result in compilation errors.
+type UnsafeOperatorAPIServer interface {
+	mustEmbedUnimplementedOperatorAPIServer()
+}
+
+func RegisterOperatorAPIServer(s *grpc.Server, srv OperatorAPIServer) {
+	s.RegisterService(&_OperatorAPI_serviceDesc, srv)
+}
+
+func _OperatorAPI_SetStatusUnknown_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OperatorAPIServer).SetStatusUnknown(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.OperatorAPI/SetStatusUnknown",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OperatorAPIServer).SetStatusUnknown(ctx, req.(*ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OperatorAPI_SetStatusRunning_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OperatorAPIServer).SetStatusRunning(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.OperatorAPI/SetStatusRunning",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OperatorAPIServer).SetStatusRunning(ctx, req.(*ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OperatorAPI_SetStatusFailed_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OperatorAPIServer).SetStatusFailed(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.OperatorAPI/SetStatusFailed",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OperatorAPIServer).SetStatusFailed(ctx, req.(*ID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _OperatorAPI_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "api.OperatorAPI",
+	HandlerType: (*OperatorAPIServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "SetStatusUnknown",
+			Handler:    _OperatorAPI_SetStatusUnknown_Handler,
+		},
+		{
+			MethodName: "SetStatusRunning",
+			Handler:    _OperatorAPI_SetStatusRunning_Handler,
+		},
+		{
+			MethodName: "SetStatusFailed",
+			Handler:    _OperatorAPI_SetStatusFailed_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "proto.proto",
+}
+
+// ActorAPIClient is the client API for ActorAPI service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type ActorAPIClient interface {
+	ImAmReady(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*empty.Empty, error)
+}
+
+type actorAPIClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewActorAPIClient(cc grpc.ClientConnInterface) ActorAPIClient {
+	return &actorAPIClient{cc}
+}
+
+func (c *actorAPIClient) ImAmReady(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/api.ActorAPI/ImAmReady", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ActorAPIServer is the server API for ActorAPI service.
+// All implementations must embed UnimplementedActorAPIServer
+// for forward compatibility
+type ActorAPIServer interface {
+	ImAmReady(context.Context, *empty.Empty) (*empty.Empty, error)
+	mustEmbedUnimplementedActorAPIServer()
+}
+
+// UnimplementedActorAPIServer must be embedded to have forward compatible implementations.
+type UnimplementedActorAPIServer struct {
+}
+
+func (UnimplementedActorAPIServer) ImAmReady(context.Context, *empty.Empty) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ImAmReady not implemented")
+}
+func (UnimplementedActorAPIServer) mustEmbedUnimplementedActorAPIServer() {}
+
+// UnsafeActorAPIServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ActorAPIServer will
+// result in compilation errors.
+type UnsafeActorAPIServer interface {
+	mustEmbedUnimplementedActorAPIServer()
+}
+
+func RegisterActorAPIServer(s *grpc.Server, srv ActorAPIServer) {
+	s.RegisterService(&_ActorAPI_serviceDesc, srv)
+}
+
+func _ActorAPI_ImAmReady_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(empty.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ActorAPIServer).ImAmReady(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.ActorAPI/ImAmReady",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ActorAPIServer).ImAmReady(ctx, req.(*empty.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _ActorAPI_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "api.ActorAPI",
+	HandlerType: (*ActorAPIServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ImAmReady",
+			Handler:    _ActorAPI_ImAmReady_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
 	Metadata: "proto.proto",
 }

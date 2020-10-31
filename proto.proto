@@ -8,29 +8,71 @@ import "google/protobuf/empty.proto";
 option go_package = "go/api";
 
 message Key {
-    string Type = 1;
-    string Name = 2;
-    string Namespace = 3;
-}
-
-message Message {
-    string Content = 1;
-
-    Key Key = 2;
-    Meta Meta = 3;
+    string type = 1;
+    string name = 2;
+    string namespace = 3;
 }
 
 message Meta {
-    string Owner = 1;
-    google.protobuf.Timestamp CreationTime = 2;
-    string Role = 3;
+    string owner = 1;
+    google.protobuf.Timestamp creationTime = 2;
+    string role = 3;
 }
 
-service API {
+message Message {
+    string content = 1;
+
+    Key key = 2;
+    Meta meta = 3;
+}
+
+service MessageAPI {
     rpc Get(Key) returns (Message);
     rpc GetAll(Key) returns (stream Message);
     rpc Put(Message) returns (google.protobuf.Empty);
     rpc Delete(Key) returns (google.protobuf.Empty);
     rpc DeleteAll(Key) returns (google.protobuf.Empty);
     rpc Watch(Key) returns (stream Message);
+}
+
+message ID {
+    string id = 1;
+}
+
+message Role {
+    string role = 1;
+}
+
+message Actor {
+    string id = 1;
+    string role = 2;
+    bool readiness = 3;
+
+    enum Status {
+        unknown = 0;
+        running = 1;
+        failed = 2;
+    };
+    Status status = 4;
+}
+
+message Result {
+
+}
+
+service DirectorAPI {
+    rpc GetActorWithID(ID) returns (Actor);
+    rpc GetActorsWithRole(Role) returns (stream Actor); 
+    rpc GetAllActors(google.protobuf.Empty) returns (stream Actor);
+    rpc PutResult(Result) returns (google.protobuf.Empty);
+}
+
+service OperatorAPI {
+    rpc SetStatusUnknown(ID) returns (google.protobuf.Empty);
+    rpc SetStatusRunning(ID) returns (google.protobuf.Empty);
+    rpc SetStatusFailed(ID) returns (google.protobuf.Empty);
+}
+
+service ActorAPI {
+    rpc ImAmReady(google.protobuf.Empty) returns (google.protobuf.Empty);
 }
