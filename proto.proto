@@ -35,7 +35,7 @@ enum Method {
 	GetAllActors = 12;
     PutResult = 13;
 
-	ImReadyMethod = 14;
+	ImReady = 14;
 }
 
 enum Status {
