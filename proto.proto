@@ -19,21 +19,21 @@ enum Character {
 enum Method {
     unknownMethod = 0;
 
-	GetMethod = 1;
-	GetAllMethod = 2;
-	PutMethod = 3;
-	DeleteMethod = 4;
-	DeleteAllMethod = 5;
-    WatchMethod = 6;
+	Get = 1;
+	GetAll = 2;
+	Put = 3;
+	Delete = 4;
+	DeleteAll = 5;
+    Watch = 6;
 
-	SetUserStatusUnknownMethod = 7;
-	SetUserStatusRunningMethod = 8;
-    SetUserStatusFailedMethod = 9;
+	SetUserStatusUnknown = 7;
+	SetUserStatusRunning = 8;
+    SetUserStatusFailed = 9;
 
-	GetActorWithIDMethod = 10;
-	GetActorsWithRoleMethod = 11;
-	GetAllActorsMethod = 12;
-    PutResultMethod = 13;
+	GetActorWithID = 10;
+	GetActorsWithRole = 11;
+	GetAllActors = 12;
+    PutResult = 13;
 
 	ImReadyMethod = 14;
 }
