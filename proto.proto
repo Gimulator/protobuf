@@ -74,5 +74,5 @@ service OperatorAPI {
 }
 
 service ActorAPI {
-    rpc ImAmReady(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc ImReady(google.protobuf.Empty) returns (google.protobuf.Empty);
 }

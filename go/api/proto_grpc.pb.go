@@ -737,7 +737,7 @@ var _OperatorAPI_serviceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ActorAPIClient interface {
-	ImAmReady(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*empty.Empty, error)
+	ImReady(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
 type actorAPIClient struct {
@@ -748,9 +748,9 @@ func NewActorAPIClient(cc grpc.ClientConnInterface) ActorAPIClient {
 	return &actorAPIClient{cc}
 }
 
-func (c *actorAPIClient) ImAmReady(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *actorAPIClient) ImReady(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/api.ActorAPI/ImAmReady", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.ActorAPI/ImReady", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -761,7 +761,7 @@ func (c *actorAPIClient) ImAmReady(ctx context.Context, in *empty.Empty, opts ..
 // All implementations must embed UnimplementedActorAPIServer
 // for forward compatibility
 type ActorAPIServer interface {
-	ImAmReady(context.Context, *empty.Empty) (*empty.Empty, error)
+	ImReady(context.Context, *empty.Empty) (*empty.Empty, error)
 	mustEmbedUnimplementedActorAPIServer()
 }
 
@@ -769,8 +769,8 @@ type ActorAPIServer interface {
 type UnimplementedActorAPIServer struct {
 }
 
-func (UnimplementedActorAPIServer) ImAmReady(context.Context, *empty.Empty) (*empty.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ImAmReady not implemented")
+func (UnimplementedActorAPIServer) ImReady(context.Context, *empty.Empty) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ImReady not implemented")
 }
 func (UnimplementedActorAPIServer) mustEmbedUnimplementedActorAPIServer() {}
 
@@ -785,20 +785,20 @@ func RegisterActorAPIServer(s *grpc.Server, srv ActorAPIServer) {
 	s.RegisterService(&_ActorAPI_serviceDesc, srv)
 }
 
-func _ActorAPI_ImAmReady_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ActorAPI_ImReady_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(empty.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ActorAPIServer).ImAmReady(ctx, in)
+		return srv.(ActorAPIServer).ImReady(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.ActorAPI/ImAmReady",
+		FullMethod: "/api.ActorAPI/ImReady",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ActorAPIServer).ImAmReady(ctx, req.(*empty.Empty))
+		return srv.(ActorAPIServer).ImReady(ctx, req.(*empty.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -808,8 +808,8 @@ var _ActorAPI_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*ActorAPIServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "ImAmReady",
-			Handler:    _ActorAPI_ImAmReady_Handler,
+			MethodName: "ImReady",
+			Handler:    _ActorAPI_ImReady_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

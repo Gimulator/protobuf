@@ -528,8 +528,8 @@ class ActorAPIStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.ImAmReady = channel.unary_unary(
-                '/api.ActorAPI/ImAmReady',
+        self.ImReady = channel.unary_unary(
+                '/api.ActorAPI/ImReady',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
@@ -538,7 +538,7 @@ class ActorAPIStub(object):
 class ActorAPIServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def ImAmReady(self, request, context):
+    def ImReady(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -547,8 +547,8 @@ class ActorAPIServicer(object):
 
 def add_ActorAPIServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'ImAmReady': grpc.unary_unary_rpc_method_handler(
-                    servicer.ImAmReady,
+            'ImReady': grpc.unary_unary_rpc_method_handler(
+                    servicer.ImReady,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
@@ -563,7 +563,7 @@ class ActorAPI(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def ImAmReady(request,
+    def ImReady(request,
             target,
             options=(),
             channel_credentials=None,
@@ -573,7 +573,7 @@ class ActorAPI(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/api.ActorAPI/ImAmReady',
+        return grpc.experimental.unary_unary(request, target, '/api.ActorAPI/ImReady',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
