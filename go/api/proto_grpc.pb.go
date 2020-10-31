@@ -582,9 +582,9 @@ var _DirectorAPI_serviceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OperatorAPIClient interface {
-	SetStatusUnknown(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error)
-	SetStatusRunning(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error)
-	SetStatusFailed(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error)
+	SetUserStatusUnknown(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error)
+	SetUserStatusRunning(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error)
+	SetUserStatusFailed(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
 type operatorAPIClient struct {
@@ -595,27 +595,27 @@ func NewOperatorAPIClient(cc grpc.ClientConnInterface) OperatorAPIClient {
 	return &operatorAPIClient{cc}
 }
 
-func (c *operatorAPIClient) SetStatusUnknown(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *operatorAPIClient) SetUserStatusUnknown(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/api.OperatorAPI/SetStatusUnknown", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.OperatorAPI/SetUserStatusUnknown", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *operatorAPIClient) SetStatusRunning(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *operatorAPIClient) SetUserStatusRunning(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/api.OperatorAPI/SetStatusRunning", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.OperatorAPI/SetUserStatusRunning", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *operatorAPIClient) SetStatusFailed(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *operatorAPIClient) SetUserStatusFailed(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/api.OperatorAPI/SetStatusFailed", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.OperatorAPI/SetUserStatusFailed", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -626,9 +626,9 @@ func (c *operatorAPIClient) SetStatusFailed(ctx context.Context, in *ID, opts ..
 // All implementations must embed UnimplementedOperatorAPIServer
 // for forward compatibility
 type OperatorAPIServer interface {
-	SetStatusUnknown(context.Context, *ID) (*empty.Empty, error)
-	SetStatusRunning(context.Context, *ID) (*empty.Empty, error)
-	SetStatusFailed(context.Context, *ID) (*empty.Empty, error)
+	SetUserStatusUnknown(context.Context, *ID) (*empty.Empty, error)
+	SetUserStatusRunning(context.Context, *ID) (*empty.Empty, error)
+	SetUserStatusFailed(context.Context, *ID) (*empty.Empty, error)
 	mustEmbedUnimplementedOperatorAPIServer()
 }
 
@@ -636,14 +636,14 @@ type OperatorAPIServer interface {
 type UnimplementedOperatorAPIServer struct {
 }
 
-func (UnimplementedOperatorAPIServer) SetStatusUnknown(context.Context, *ID) (*empty.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetStatusUnknown not implemented")
+func (UnimplementedOperatorAPIServer) SetUserStatusUnknown(context.Context, *ID) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetUserStatusUnknown not implemented")
 }
-func (UnimplementedOperatorAPIServer) SetStatusRunning(context.Context, *ID) (*empty.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetStatusRunning not implemented")
+func (UnimplementedOperatorAPIServer) SetUserStatusRunning(context.Context, *ID) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetUserStatusRunning not implemented")
 }
-func (UnimplementedOperatorAPIServer) SetStatusFailed(context.Context, *ID) (*empty.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetStatusFailed not implemented")
+func (UnimplementedOperatorAPIServer) SetUserStatusFailed(context.Context, *ID) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetUserStatusFailed not implemented")
 }
 func (UnimplementedOperatorAPIServer) mustEmbedUnimplementedOperatorAPIServer() {}
 
@@ -658,56 +658,56 @@ func RegisterOperatorAPIServer(s *grpc.Server, srv OperatorAPIServer) {
 	s.RegisterService(&_OperatorAPI_serviceDesc, srv)
 }
 
-func _OperatorAPI_SetStatusUnknown_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _OperatorAPI_SetUserStatusUnknown_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OperatorAPIServer).SetStatusUnknown(ctx, in)
+		return srv.(OperatorAPIServer).SetUserStatusUnknown(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.OperatorAPI/SetStatusUnknown",
+		FullMethod: "/api.OperatorAPI/SetUserStatusUnknown",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OperatorAPIServer).SetStatusUnknown(ctx, req.(*ID))
+		return srv.(OperatorAPIServer).SetUserStatusUnknown(ctx, req.(*ID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OperatorAPI_SetStatusRunning_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _OperatorAPI_SetUserStatusRunning_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OperatorAPIServer).SetStatusRunning(ctx, in)
+		return srv.(OperatorAPIServer).SetUserStatusRunning(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.OperatorAPI/SetStatusRunning",
+		FullMethod: "/api.OperatorAPI/SetUserStatusRunning",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OperatorAPIServer).SetStatusRunning(ctx, req.(*ID))
+		return srv.(OperatorAPIServer).SetUserStatusRunning(ctx, req.(*ID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OperatorAPI_SetStatusFailed_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _OperatorAPI_SetUserStatusFailed_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ID)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OperatorAPIServer).SetStatusFailed(ctx, in)
+		return srv.(OperatorAPIServer).SetUserStatusFailed(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.OperatorAPI/SetStatusFailed",
+		FullMethod: "/api.OperatorAPI/SetUserStatusFailed",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OperatorAPIServer).SetStatusFailed(ctx, req.(*ID))
+		return srv.(OperatorAPIServer).SetUserStatusFailed(ctx, req.(*ID))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -717,16 +717,16 @@ var _OperatorAPI_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*OperatorAPIServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "SetStatusUnknown",
-			Handler:    _OperatorAPI_SetStatusUnknown_Handler,
+			MethodName: "SetUserStatusUnknown",
+			Handler:    _OperatorAPI_SetUserStatusUnknown_Handler,
 		},
 		{
-			MethodName: "SetStatusRunning",
-			Handler:    _OperatorAPI_SetStatusRunning_Handler,
+			MethodName: "SetUserStatusRunning",
+			Handler:    _OperatorAPI_SetUserStatusRunning_Handler,
 		},
 		{
-			MethodName: "SetStatusFailed",
-			Handler:    _OperatorAPI_SetStatusFailed_Handler,
+			MethodName: "SetUserStatusFailed",
+			Handler:    _OperatorAPI_SetUserStatusFailed_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

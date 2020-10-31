@@ -7,8 +7,8 @@ import "google/protobuf/empty.proto";
 
 option go_package = "go/api";
 
-enum RoleType {
-    unknownType = 0;
+enum Character {
+    unknownCharacter = 0;
 
     director = 1;
     actor = 2;
@@ -26,22 +26,24 @@ enum Method {
 	DeleteAllMethod = 5;
     WatchMethod = 6;
 
-	SetStatusUnknownMethod = 7;
-	SetStatusRunningMethod = 8;
-    SetStatusFailedMethod = 9;
+	SetUserStatusUnknownMethod = 7;
+	SetUserStatusRunningMethod = 8;
+    SetUserStatusFailedMethod = 9;
 
 	GetActorWithIDMethod = 10;
 	GetActorsWithRoleMethod = 11;
 	GetAllActorsMethod = 12;
     PutResultMethod = 13;
 
-	ImAmReadyMethod = 14;
+	ImReadyMethod = 14;
 }
 
 enum Status {
-    unknown = 0;
-    running = 1;
-    failed = 2;
+    unknownStatus = 0;
+
+    unknown = 1;
+    running = 2;
+    failed = 3;
 };
 
 message Key {
@@ -84,7 +86,6 @@ message Actor {
     string id = 1;
     string role = 2;
     bool readiness = 3;
-
     Status status = 4;
 }
 
@@ -99,10 +100,19 @@ service DirectorAPI {
     rpc PutResult(Result) returns (google.protobuf.Empty);
 }
 
+message User {
+    string id = 1;
+    string token = 2;
+    Character character = 3;
+    string role = 4;
+    bool readiness = 5;
+    Status status = 6;
+}
+
 service OperatorAPI {
-    rpc SetStatusUnknown(ID) returns (google.protobuf.Empty);
-    rpc SetStatusRunning(ID) returns (google.protobuf.Empty);
-    rpc SetStatusFailed(ID) returns (google.protobuf.Empty);
+    rpc SetUserStatusUnknown(ID) returns (google.protobuf.Empty);
+    rpc SetUserStatusRunning(ID) returns (google.protobuf.Empty);
+    rpc SetUserStatusFailed(ID) returns (google.protobuf.Empty);
 }
 
 service ActorAPI {
