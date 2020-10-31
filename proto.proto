@@ -7,6 +7,43 @@ import "google/protobuf/empty.proto";
 
 option go_package = "go/api";
 
+enum RoleType {
+    unknownType = 0;
+
+    director = 1;
+    actor = 2;
+    operator = 3;
+    master = 4;
+}
+
+enum Method {
+    unknownMethod = 0;
+
+	GetMethod = 1;
+	GetAllMethod = 2;
+	PutMethod = 3;
+	DeleteMethod = 4;
+	DeleteAllMethod = 5;
+    WatchMethod = 6;
+
+	SetStatusUnknownMethod = 7;
+	SetStatusRunningMethod = 8;
+    SetStatusFailedMethod = 9;
+
+	GetActorWithIDMethod = 10;
+	GetActorsWithRoleMethod = 11;
+	GetAllActorsMethod = 12;
+    PutResultMethod = 13;
+
+	ImAmReadyMethod = 14;
+}
+
+enum Status {
+    unknown = 0;
+    running = 1;
+    failed = 2;
+};
+
 message Key {
     string type = 1;
     string name = 2;
@@ -48,11 +85,6 @@ message Actor {
     string role = 2;
     bool readiness = 3;
 
-    enum Status {
-        unknown = 0;
-        running = 1;
-        failed = 2;
-    };
     Status status = 4;
 }
 
