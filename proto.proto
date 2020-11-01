@@ -55,7 +55,8 @@ message Key {
 message Meta {
     string owner = 1;
     google.protobuf.Timestamp creationTime = 2;
-    string role = 3;
+    Character character = 3;
+    string role = 4;
 }
 
 message Message {
