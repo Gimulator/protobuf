@@ -44,8 +44,9 @@ enum Status {
     failed = 3;
 };
 
-message Name {
+message Report {
     string name = 1;
+    Status status = 2;
 }
 
 message User {
@@ -95,9 +96,7 @@ service DirectorAPI {
 
 
 service OperatorAPI {
-    rpc SetUserStatusUnknown(Name) returns (google.protobuf.Empty);
-    rpc SetUserStatusRunning(Name) returns (google.protobuf.Empty);
-    rpc SetUserStatusFailed(Name) returns (google.protobuf.Empty);
+    rpc SetUserStatus(Report) returns (google.protobuf.Empty);
 }
 
 service UserAPI {

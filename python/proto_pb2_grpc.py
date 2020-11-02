@@ -335,19 +335,9 @@ class OperatorAPIStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.SetUserStatusUnknown = channel.unary_unary(
-                '/api.OperatorAPI/SetUserStatusUnknown',
-                request_serializer=proto__pb2.Name.SerializeToString,
-                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                )
-        self.SetUserStatusRunning = channel.unary_unary(
-                '/api.OperatorAPI/SetUserStatusRunning',
-                request_serializer=proto__pb2.Name.SerializeToString,
-                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                )
-        self.SetUserStatusFailed = channel.unary_unary(
-                '/api.OperatorAPI/SetUserStatusFailed',
-                request_serializer=proto__pb2.Name.SerializeToString,
+        self.SetUserStatus = channel.unary_unary(
+                '/api.OperatorAPI/SetUserStatus',
+                request_serializer=proto__pb2.Report.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -355,19 +345,7 @@ class OperatorAPIStub(object):
 class OperatorAPIServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def SetUserStatusUnknown(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def SetUserStatusRunning(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def SetUserStatusFailed(self, request, context):
+    def SetUserStatus(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -376,19 +354,9 @@ class OperatorAPIServicer(object):
 
 def add_OperatorAPIServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'SetUserStatusUnknown': grpc.unary_unary_rpc_method_handler(
-                    servicer.SetUserStatusUnknown,
-                    request_deserializer=proto__pb2.Name.FromString,
-                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            ),
-            'SetUserStatusRunning': grpc.unary_unary_rpc_method_handler(
-                    servicer.SetUserStatusRunning,
-                    request_deserializer=proto__pb2.Name.FromString,
-                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            ),
-            'SetUserStatusFailed': grpc.unary_unary_rpc_method_handler(
-                    servicer.SetUserStatusFailed,
-                    request_deserializer=proto__pb2.Name.FromString,
+            'SetUserStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetUserStatus,
+                    request_deserializer=proto__pb2.Report.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -402,7 +370,7 @@ class OperatorAPI(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def SetUserStatusUnknown(request,
+    def SetUserStatus(request,
             target,
             options=(),
             channel_credentials=None,
@@ -412,42 +380,8 @@ class OperatorAPI(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/api.OperatorAPI/SetUserStatusUnknown',
-            proto__pb2.Name.SerializeToString,
-            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def SetUserStatusRunning(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/api.OperatorAPI/SetUserStatusRunning',
-            proto__pb2.Name.SerializeToString,
-            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def SetUserStatusFailed(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/api.OperatorAPI/SetUserStatusFailed',
-            proto__pb2.Name.SerializeToString,
+        return grpc.experimental.unary_unary(request, target, '/api.OperatorAPI/SetUserStatus',
+            proto__pb2.Report.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
