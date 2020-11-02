@@ -46,6 +46,22 @@ enum Status {
     failed = 3;
 };
 
+message Name {
+    string name = 1;
+}
+
+message User {
+    string name = 1;
+    Character character = 3;
+    string role = 4;
+    bool readiness = 5;
+    Status status = 6;
+}
+
+message Result {
+
+}
+
 message Key {
     string type = 1;
     string name = 2;
@@ -53,10 +69,8 @@ message Key {
 }
 
 message Meta {
-    string owner = 1;
+    User owner = 1;
     google.protobuf.Timestamp creationTime = 2;
-    Character character = 3;
-    string role = 4;
 }
 
 message Message {
@@ -65,6 +79,7 @@ message Message {
     Key key = 2;
     Meta meta = 3;
 }
+
 
 service MessageAPI {
     rpc Get(Key) returns (Message);
@@ -75,40 +90,11 @@ service MessageAPI {
     rpc Watch(Key) returns (stream Message);
 }
 
-message Name {
-    string name = 1;
-}
-
-message Role {
-    string role = 1;
-}
-
-message Actor {
-    string name = 1;
-    string role = 2;
-    bool readiness = 3;
-    Status status = 4;
-}
-
-message Result {
-
-}
-
 service DirectorAPI {
-    rpc GetActorWithName(Name) returns (Actor);
-    rpc GetActorsWithRole(Role) returns (stream Actor); 
-    rpc GetAllActors(google.protobuf.Empty) returns (stream Actor);
+    rpc GetActors(google.protobuf.Empty) returns (stream User);
     rpc PutResult(Result) returns (google.protobuf.Empty);
 }
 
-message User {
-    string name = 1;
-    string token = 2;
-    Character character = 3;
-    string role = 4;
-    bool readiness = 5;
-    Status status = 6;
-}
 
 service OperatorAPI {
     rpc SetUserStatusUnknown(Name) returns (google.protobuf.Empty);

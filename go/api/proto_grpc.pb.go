@@ -336,9 +336,7 @@ var _MessageAPI_serviceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DirectorAPIClient interface {
-	GetActorWithName(ctx context.Context, in *Name, opts ...grpc.CallOption) (*Actor, error)
-	GetActorsWithRole(ctx context.Context, in *Role, opts ...grpc.CallOption) (DirectorAPI_GetActorsWithRoleClient, error)
-	GetAllActors(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (DirectorAPI_GetAllActorsClient, error)
+	GetActors(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (DirectorAPI_GetActorsClient, error)
 	PutResult(ctx context.Context, in *Result, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
@@ -350,21 +348,12 @@ func NewDirectorAPIClient(cc grpc.ClientConnInterface) DirectorAPIClient {
 	return &directorAPIClient{cc}
 }
 
-func (c *directorAPIClient) GetActorWithName(ctx context.Context, in *Name, opts ...grpc.CallOption) (*Actor, error) {
-	out := new(Actor)
-	err := c.cc.Invoke(ctx, "/api.DirectorAPI/GetActorWithName", in, out, opts...)
+func (c *directorAPIClient) GetActors(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (DirectorAPI_GetActorsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_DirectorAPI_serviceDesc.Streams[0], "/api.DirectorAPI/GetActors", opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
-}
-
-func (c *directorAPIClient) GetActorsWithRole(ctx context.Context, in *Role, opts ...grpc.CallOption) (DirectorAPI_GetActorsWithRoleClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_DirectorAPI_serviceDesc.Streams[0], "/api.DirectorAPI/GetActorsWithRole", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &directorAPIGetActorsWithRoleClient{stream}
+	x := &directorAPIGetActorsClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -374,49 +363,17 @@ func (c *directorAPIClient) GetActorsWithRole(ctx context.Context, in *Role, opt
 	return x, nil
 }
 
-type DirectorAPI_GetActorsWithRoleClient interface {
-	Recv() (*Actor, error)
+type DirectorAPI_GetActorsClient interface {
+	Recv() (*User, error)
 	grpc.ClientStream
 }
 
-type directorAPIGetActorsWithRoleClient struct {
+type directorAPIGetActorsClient struct {
 	grpc.ClientStream
 }
 
-func (x *directorAPIGetActorsWithRoleClient) Recv() (*Actor, error) {
-	m := new(Actor)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *directorAPIClient) GetAllActors(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (DirectorAPI_GetAllActorsClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_DirectorAPI_serviceDesc.Streams[1], "/api.DirectorAPI/GetAllActors", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &directorAPIGetAllActorsClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-type DirectorAPI_GetAllActorsClient interface {
-	Recv() (*Actor, error)
-	grpc.ClientStream
-}
-
-type directorAPIGetAllActorsClient struct {
-	grpc.ClientStream
-}
-
-func (x *directorAPIGetAllActorsClient) Recv() (*Actor, error) {
-	m := new(Actor)
+func (x *directorAPIGetActorsClient) Recv() (*User, error) {
+	m := new(User)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -436,9 +393,7 @@ func (c *directorAPIClient) PutResult(ctx context.Context, in *Result, opts ...g
 // All implementations must embed UnimplementedDirectorAPIServer
 // for forward compatibility
 type DirectorAPIServer interface {
-	GetActorWithName(context.Context, *Name) (*Actor, error)
-	GetActorsWithRole(*Role, DirectorAPI_GetActorsWithRoleServer) error
-	GetAllActors(*empty.Empty, DirectorAPI_GetAllActorsServer) error
+	GetActors(*empty.Empty, DirectorAPI_GetActorsServer) error
 	PutResult(context.Context, *Result) (*empty.Empty, error)
 	mustEmbedUnimplementedDirectorAPIServer()
 }
@@ -447,14 +402,8 @@ type DirectorAPIServer interface {
 type UnimplementedDirectorAPIServer struct {
 }
 
-func (UnimplementedDirectorAPIServer) GetActorWithName(context.Context, *Name) (*Actor, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetActorWithName not implemented")
-}
-func (UnimplementedDirectorAPIServer) GetActorsWithRole(*Role, DirectorAPI_GetActorsWithRoleServer) error {
-	return status.Errorf(codes.Unimplemented, "method GetActorsWithRole not implemented")
-}
-func (UnimplementedDirectorAPIServer) GetAllActors(*empty.Empty, DirectorAPI_GetAllActorsServer) error {
-	return status.Errorf(codes.Unimplemented, "method GetAllActors not implemented")
+func (UnimplementedDirectorAPIServer) GetActors(*empty.Empty, DirectorAPI_GetActorsServer) error {
+	return status.Errorf(codes.Unimplemented, "method GetActors not implemented")
 }
 func (UnimplementedDirectorAPIServer) PutResult(context.Context, *Result) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PutResult not implemented")
@@ -472,63 +421,24 @@ func RegisterDirectorAPIServer(s *grpc.Server, srv DirectorAPIServer) {
 	s.RegisterService(&_DirectorAPI_serviceDesc, srv)
 }
 
-func _DirectorAPI_GetActorWithName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Name)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DirectorAPIServer).GetActorWithName(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.DirectorAPI/GetActorWithName",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DirectorAPIServer).GetActorWithName(ctx, req.(*Name))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _DirectorAPI_GetActorsWithRole_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Role)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(DirectorAPIServer).GetActorsWithRole(m, &directorAPIGetActorsWithRoleServer{stream})
-}
-
-type DirectorAPI_GetActorsWithRoleServer interface {
-	Send(*Actor) error
-	grpc.ServerStream
-}
-
-type directorAPIGetActorsWithRoleServer struct {
-	grpc.ServerStream
-}
-
-func (x *directorAPIGetActorsWithRoleServer) Send(m *Actor) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func _DirectorAPI_GetAllActors_Handler(srv interface{}, stream grpc.ServerStream) error {
+func _DirectorAPI_GetActors_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(empty.Empty)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(DirectorAPIServer).GetAllActors(m, &directorAPIGetAllActorsServer{stream})
+	return srv.(DirectorAPIServer).GetActors(m, &directorAPIGetActorsServer{stream})
 }
 
-type DirectorAPI_GetAllActorsServer interface {
-	Send(*Actor) error
+type DirectorAPI_GetActorsServer interface {
+	Send(*User) error
 	grpc.ServerStream
 }
 
-type directorAPIGetAllActorsServer struct {
+type directorAPIGetActorsServer struct {
 	grpc.ServerStream
 }
 
-func (x *directorAPIGetAllActorsServer) Send(m *Actor) error {
+func (x *directorAPIGetActorsServer) Send(m *User) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -555,23 +465,14 @@ var _DirectorAPI_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*DirectorAPIServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetActorWithName",
-			Handler:    _DirectorAPI_GetActorWithName_Handler,
-		},
-		{
 			MethodName: "PutResult",
 			Handler:    _DirectorAPI_PutResult_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "GetActorsWithRole",
-			Handler:       _DirectorAPI_GetActorsWithRole_Handler,
-			ServerStreams: true,
-		},
-		{
-			StreamName:    "GetAllActors",
-			Handler:       _DirectorAPI_GetAllActors_Handler,
+			StreamName:    "GetActors",
+			Handler:       _DirectorAPI_GetActors_Handler,
 			ServerStreams: true,
 		},
 	},
