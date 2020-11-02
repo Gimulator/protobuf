@@ -26,16 +26,14 @@ enum Method {
 	DeleteAll = 5;
     Watch = 6;
 
-	SetUserStatusUnknown = 7;
-	SetUserStatusRunning = 8;
-    SetUserStatusFailed = 9;
+	SetUserStatusUnknown = 10;
+	SetUserStatusRunning = 11;
+    SetUserStatusFailed = 12;
 
-	GetActorWithID = 10;
-	GetActorsWithRole = 11;
-	GetAllActors = 12;
-    PutResult = 13;
+	GetActors = 20;
+    PutResult = 21;
 
-	ImReady = 14;
+	ImReady = 30;
 }
 
 enum Status {
