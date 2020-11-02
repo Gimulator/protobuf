@@ -241,20 +241,10 @@ class DirectorAPIStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetActorWithName = channel.unary_unary(
-                '/api.DirectorAPI/GetActorWithName',
-                request_serializer=proto__pb2.Name.SerializeToString,
-                response_deserializer=proto__pb2.Actor.FromString,
-                )
-        self.GetActorsWithRole = channel.unary_stream(
-                '/api.DirectorAPI/GetActorsWithRole',
-                request_serializer=proto__pb2.Role.SerializeToString,
-                response_deserializer=proto__pb2.Actor.FromString,
-                )
-        self.GetAllActors = channel.unary_stream(
-                '/api.DirectorAPI/GetAllActors',
+        self.GetActors = channel.unary_stream(
+                '/api.DirectorAPI/GetActors',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-                response_deserializer=proto__pb2.Actor.FromString,
+                response_deserializer=proto__pb2.User.FromString,
                 )
         self.PutResult = channel.unary_unary(
                 '/api.DirectorAPI/PutResult',
@@ -266,19 +256,7 @@ class DirectorAPIStub(object):
 class DirectorAPIServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def GetActorWithName(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def GetActorsWithRole(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def GetAllActors(self, request, context):
+    def GetActors(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -293,20 +271,10 @@ class DirectorAPIServicer(object):
 
 def add_DirectorAPIServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetActorWithName': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetActorWithName,
-                    request_deserializer=proto__pb2.Name.FromString,
-                    response_serializer=proto__pb2.Actor.SerializeToString,
-            ),
-            'GetActorsWithRole': grpc.unary_stream_rpc_method_handler(
-                    servicer.GetActorsWithRole,
-                    request_deserializer=proto__pb2.Role.FromString,
-                    response_serializer=proto__pb2.Actor.SerializeToString,
-            ),
-            'GetAllActors': grpc.unary_stream_rpc_method_handler(
-                    servicer.GetAllActors,
+            'GetActors': grpc.unary_stream_rpc_method_handler(
+                    servicer.GetActors,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                    response_serializer=proto__pb2.Actor.SerializeToString,
+                    response_serializer=proto__pb2.User.SerializeToString,
             ),
             'PutResult': grpc.unary_unary_rpc_method_handler(
                     servicer.PutResult,
@@ -324,7 +292,7 @@ class DirectorAPI(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def GetActorWithName(request,
+    def GetActors(request,
             target,
             options=(),
             channel_credentials=None,
@@ -334,43 +302,9 @@ class DirectorAPI(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/api.DirectorAPI/GetActorWithName',
-            proto__pb2.Name.SerializeToString,
-            proto__pb2.Actor.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def GetActorsWithRole(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/api.DirectorAPI/GetActorsWithRole',
-            proto__pb2.Role.SerializeToString,
-            proto__pb2.Actor.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def GetAllActors(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/api.DirectorAPI/GetAllActors',
+        return grpc.experimental.unary_stream(request, target, '/api.DirectorAPI/GetActors',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            proto__pb2.Actor.FromString,
+            proto__pb2.User.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
