@@ -241,9 +241,9 @@ class DirectorAPIStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetActorWithID = channel.unary_unary(
-                '/api.DirectorAPI/GetActorWithID',
-                request_serializer=proto__pb2.ID.SerializeToString,
+        self.GetActorWithName = channel.unary_unary(
+                '/api.DirectorAPI/GetActorWithName',
+                request_serializer=proto__pb2.Name.SerializeToString,
                 response_deserializer=proto__pb2.Actor.FromString,
                 )
         self.GetActorsWithRole = channel.unary_stream(
@@ -266,7 +266,7 @@ class DirectorAPIStub(object):
 class DirectorAPIServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def GetActorWithID(self, request, context):
+    def GetActorWithName(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -293,9 +293,9 @@ class DirectorAPIServicer(object):
 
 def add_DirectorAPIServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetActorWithID': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetActorWithID,
-                    request_deserializer=proto__pb2.ID.FromString,
+            'GetActorWithName': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetActorWithName,
+                    request_deserializer=proto__pb2.Name.FromString,
                     response_serializer=proto__pb2.Actor.SerializeToString,
             ),
             'GetActorsWithRole': grpc.unary_stream_rpc_method_handler(
@@ -324,7 +324,7 @@ class DirectorAPI(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def GetActorWithID(request,
+    def GetActorWithName(request,
             target,
             options=(),
             channel_credentials=None,
@@ -334,8 +334,8 @@ class DirectorAPI(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/api.DirectorAPI/GetActorWithID',
-            proto__pb2.ID.SerializeToString,
+        return grpc.experimental.unary_unary(request, target, '/api.DirectorAPI/GetActorWithName',
+            proto__pb2.Name.SerializeToString,
             proto__pb2.Actor.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -403,17 +403,17 @@ class OperatorAPIStub(object):
         """
         self.SetUserStatusUnknown = channel.unary_unary(
                 '/api.OperatorAPI/SetUserStatusUnknown',
-                request_serializer=proto__pb2.ID.SerializeToString,
+                request_serializer=proto__pb2.Name.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
         self.SetUserStatusRunning = channel.unary_unary(
                 '/api.OperatorAPI/SetUserStatusRunning',
-                request_serializer=proto__pb2.ID.SerializeToString,
+                request_serializer=proto__pb2.Name.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
         self.SetUserStatusFailed = channel.unary_unary(
                 '/api.OperatorAPI/SetUserStatusFailed',
-                request_serializer=proto__pb2.ID.SerializeToString,
+                request_serializer=proto__pb2.Name.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -444,17 +444,17 @@ def add_OperatorAPIServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'SetUserStatusUnknown': grpc.unary_unary_rpc_method_handler(
                     servicer.SetUserStatusUnknown,
-                    request_deserializer=proto__pb2.ID.FromString,
+                    request_deserializer=proto__pb2.Name.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'SetUserStatusRunning': grpc.unary_unary_rpc_method_handler(
                     servicer.SetUserStatusRunning,
-                    request_deserializer=proto__pb2.ID.FromString,
+                    request_deserializer=proto__pb2.Name.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'SetUserStatusFailed': grpc.unary_unary_rpc_method_handler(
                     servicer.SetUserStatusFailed,
-                    request_deserializer=proto__pb2.ID.FromString,
+                    request_deserializer=proto__pb2.Name.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -479,7 +479,7 @@ class OperatorAPI(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.OperatorAPI/SetUserStatusUnknown',
-            proto__pb2.ID.SerializeToString,
+            proto__pb2.Name.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -496,7 +496,7 @@ class OperatorAPI(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.OperatorAPI/SetUserStatusRunning',
-            proto__pb2.ID.SerializeToString,
+            proto__pb2.Name.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -513,13 +513,13 @@ class OperatorAPI(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/api.OperatorAPI/SetUserStatusFailed',
-            proto__pb2.ID.SerializeToString,
+            proto__pb2.Name.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
 
-class ActorAPIStub(object):
+class UserAPIStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -529,13 +529,13 @@ class ActorAPIStub(object):
             channel: A grpc.Channel.
         """
         self.ImReady = channel.unary_unary(
-                '/api.ActorAPI/ImReady',
+                '/api.UserAPI/ImReady',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
 
-class ActorAPIServicer(object):
+class UserAPIServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def ImReady(self, request, context):
@@ -545,7 +545,7 @@ class ActorAPIServicer(object):
         raise NotImplementedError('Method not implemented!')
 
 
-def add_ActorAPIServicer_to_server(servicer, server):
+def add_UserAPIServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'ImReady': grpc.unary_unary_rpc_method_handler(
                     servicer.ImReady,
@@ -554,12 +554,12 @@ def add_ActorAPIServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'api.ActorAPI', rpc_method_handlers)
+            'api.UserAPI', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class ActorAPI(object):
+class UserAPI(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -573,7 +573,7 @@ class ActorAPI(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/api.ActorAPI/ImReady',
+        return grpc.experimental.unary_unary(request, target, '/api.UserAPI/ImReady',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,

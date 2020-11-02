@@ -336,7 +336,7 @@ var _MessageAPI_serviceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DirectorAPIClient interface {
-	GetActorWithID(ctx context.Context, in *ID, opts ...grpc.CallOption) (*Actor, error)
+	GetActorWithName(ctx context.Context, in *Name, opts ...grpc.CallOption) (*Actor, error)
 	GetActorsWithRole(ctx context.Context, in *Role, opts ...grpc.CallOption) (DirectorAPI_GetActorsWithRoleClient, error)
 	GetAllActors(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (DirectorAPI_GetAllActorsClient, error)
 	PutResult(ctx context.Context, in *Result, opts ...grpc.CallOption) (*empty.Empty, error)
@@ -350,9 +350,9 @@ func NewDirectorAPIClient(cc grpc.ClientConnInterface) DirectorAPIClient {
 	return &directorAPIClient{cc}
 }
 
-func (c *directorAPIClient) GetActorWithID(ctx context.Context, in *ID, opts ...grpc.CallOption) (*Actor, error) {
+func (c *directorAPIClient) GetActorWithName(ctx context.Context, in *Name, opts ...grpc.CallOption) (*Actor, error) {
 	out := new(Actor)
-	err := c.cc.Invoke(ctx, "/api.DirectorAPI/GetActorWithID", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.DirectorAPI/GetActorWithName", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -436,7 +436,7 @@ func (c *directorAPIClient) PutResult(ctx context.Context, in *Result, opts ...g
 // All implementations must embed UnimplementedDirectorAPIServer
 // for forward compatibility
 type DirectorAPIServer interface {
-	GetActorWithID(context.Context, *ID) (*Actor, error)
+	GetActorWithName(context.Context, *Name) (*Actor, error)
 	GetActorsWithRole(*Role, DirectorAPI_GetActorsWithRoleServer) error
 	GetAllActors(*empty.Empty, DirectorAPI_GetAllActorsServer) error
 	PutResult(context.Context, *Result) (*empty.Empty, error)
@@ -447,8 +447,8 @@ type DirectorAPIServer interface {
 type UnimplementedDirectorAPIServer struct {
 }
 
-func (UnimplementedDirectorAPIServer) GetActorWithID(context.Context, *ID) (*Actor, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetActorWithID not implemented")
+func (UnimplementedDirectorAPIServer) GetActorWithName(context.Context, *Name) (*Actor, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetActorWithName not implemented")
 }
 func (UnimplementedDirectorAPIServer) GetActorsWithRole(*Role, DirectorAPI_GetActorsWithRoleServer) error {
 	return status.Errorf(codes.Unimplemented, "method GetActorsWithRole not implemented")
@@ -472,20 +472,20 @@ func RegisterDirectorAPIServer(s *grpc.Server, srv DirectorAPIServer) {
 	s.RegisterService(&_DirectorAPI_serviceDesc, srv)
 }
 
-func _DirectorAPI_GetActorWithID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ID)
+func _DirectorAPI_GetActorWithName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Name)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DirectorAPIServer).GetActorWithID(ctx, in)
+		return srv.(DirectorAPIServer).GetActorWithName(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.DirectorAPI/GetActorWithID",
+		FullMethod: "/api.DirectorAPI/GetActorWithName",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DirectorAPIServer).GetActorWithID(ctx, req.(*ID))
+		return srv.(DirectorAPIServer).GetActorWithName(ctx, req.(*Name))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -555,8 +555,8 @@ var _DirectorAPI_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*DirectorAPIServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetActorWithID",
-			Handler:    _DirectorAPI_GetActorWithID_Handler,
+			MethodName: "GetActorWithName",
+			Handler:    _DirectorAPI_GetActorWithName_Handler,
 		},
 		{
 			MethodName: "PutResult",
@@ -582,9 +582,9 @@ var _DirectorAPI_serviceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OperatorAPIClient interface {
-	SetUserStatusUnknown(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error)
-	SetUserStatusRunning(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error)
-	SetUserStatusFailed(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error)
+	SetUserStatusUnknown(ctx context.Context, in *Name, opts ...grpc.CallOption) (*empty.Empty, error)
+	SetUserStatusRunning(ctx context.Context, in *Name, opts ...grpc.CallOption) (*empty.Empty, error)
+	SetUserStatusFailed(ctx context.Context, in *Name, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
 type operatorAPIClient struct {
@@ -595,7 +595,7 @@ func NewOperatorAPIClient(cc grpc.ClientConnInterface) OperatorAPIClient {
 	return &operatorAPIClient{cc}
 }
 
-func (c *operatorAPIClient) SetUserStatusUnknown(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *operatorAPIClient) SetUserStatusUnknown(ctx context.Context, in *Name, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
 	err := c.cc.Invoke(ctx, "/api.OperatorAPI/SetUserStatusUnknown", in, out, opts...)
 	if err != nil {
@@ -604,7 +604,7 @@ func (c *operatorAPIClient) SetUserStatusUnknown(ctx context.Context, in *ID, op
 	return out, nil
 }
 
-func (c *operatorAPIClient) SetUserStatusRunning(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *operatorAPIClient) SetUserStatusRunning(ctx context.Context, in *Name, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
 	err := c.cc.Invoke(ctx, "/api.OperatorAPI/SetUserStatusRunning", in, out, opts...)
 	if err != nil {
@@ -613,7 +613,7 @@ func (c *operatorAPIClient) SetUserStatusRunning(ctx context.Context, in *ID, op
 	return out, nil
 }
 
-func (c *operatorAPIClient) SetUserStatusFailed(ctx context.Context, in *ID, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *operatorAPIClient) SetUserStatusFailed(ctx context.Context, in *Name, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
 	err := c.cc.Invoke(ctx, "/api.OperatorAPI/SetUserStatusFailed", in, out, opts...)
 	if err != nil {
@@ -626,9 +626,9 @@ func (c *operatorAPIClient) SetUserStatusFailed(ctx context.Context, in *ID, opt
 // All implementations must embed UnimplementedOperatorAPIServer
 // for forward compatibility
 type OperatorAPIServer interface {
-	SetUserStatusUnknown(context.Context, *ID) (*empty.Empty, error)
-	SetUserStatusRunning(context.Context, *ID) (*empty.Empty, error)
-	SetUserStatusFailed(context.Context, *ID) (*empty.Empty, error)
+	SetUserStatusUnknown(context.Context, *Name) (*empty.Empty, error)
+	SetUserStatusRunning(context.Context, *Name) (*empty.Empty, error)
+	SetUserStatusFailed(context.Context, *Name) (*empty.Empty, error)
 	mustEmbedUnimplementedOperatorAPIServer()
 }
 
@@ -636,13 +636,13 @@ type OperatorAPIServer interface {
 type UnimplementedOperatorAPIServer struct {
 }
 
-func (UnimplementedOperatorAPIServer) SetUserStatusUnknown(context.Context, *ID) (*empty.Empty, error) {
+func (UnimplementedOperatorAPIServer) SetUserStatusUnknown(context.Context, *Name) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetUserStatusUnknown not implemented")
 }
-func (UnimplementedOperatorAPIServer) SetUserStatusRunning(context.Context, *ID) (*empty.Empty, error) {
+func (UnimplementedOperatorAPIServer) SetUserStatusRunning(context.Context, *Name) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetUserStatusRunning not implemented")
 }
-func (UnimplementedOperatorAPIServer) SetUserStatusFailed(context.Context, *ID) (*empty.Empty, error) {
+func (UnimplementedOperatorAPIServer) SetUserStatusFailed(context.Context, *Name) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetUserStatusFailed not implemented")
 }
 func (UnimplementedOperatorAPIServer) mustEmbedUnimplementedOperatorAPIServer() {}
@@ -659,7 +659,7 @@ func RegisterOperatorAPIServer(s *grpc.Server, srv OperatorAPIServer) {
 }
 
 func _OperatorAPI_SetUserStatusUnknown_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ID)
+	in := new(Name)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -671,13 +671,13 @@ func _OperatorAPI_SetUserStatusUnknown_Handler(srv interface{}, ctx context.Cont
 		FullMethod: "/api.OperatorAPI/SetUserStatusUnknown",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OperatorAPIServer).SetUserStatusUnknown(ctx, req.(*ID))
+		return srv.(OperatorAPIServer).SetUserStatusUnknown(ctx, req.(*Name))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _OperatorAPI_SetUserStatusRunning_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ID)
+	in := new(Name)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -689,13 +689,13 @@ func _OperatorAPI_SetUserStatusRunning_Handler(srv interface{}, ctx context.Cont
 		FullMethod: "/api.OperatorAPI/SetUserStatusRunning",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OperatorAPIServer).SetUserStatusRunning(ctx, req.(*ID))
+		return srv.(OperatorAPIServer).SetUserStatusRunning(ctx, req.(*Name))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _OperatorAPI_SetUserStatusFailed_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ID)
+	in := new(Name)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -707,7 +707,7 @@ func _OperatorAPI_SetUserStatusFailed_Handler(srv interface{}, ctx context.Conte
 		FullMethod: "/api.OperatorAPI/SetUserStatusFailed",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OperatorAPIServer).SetUserStatusFailed(ctx, req.(*ID))
+		return srv.(OperatorAPIServer).SetUserStatusFailed(ctx, req.(*Name))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -733,83 +733,83 @@ var _OperatorAPI_serviceDesc = grpc.ServiceDesc{
 	Metadata: "proto.proto",
 }
 
-// ActorAPIClient is the client API for ActorAPI service.
+// UserAPIClient is the client API for UserAPI service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ActorAPIClient interface {
+type UserAPIClient interface {
 	ImReady(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
-type actorAPIClient struct {
+type userAPIClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewActorAPIClient(cc grpc.ClientConnInterface) ActorAPIClient {
-	return &actorAPIClient{cc}
+func NewUserAPIClient(cc grpc.ClientConnInterface) UserAPIClient {
+	return &userAPIClient{cc}
 }
 
-func (c *actorAPIClient) ImReady(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *userAPIClient) ImReady(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/api.ActorAPI/ImReady", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.UserAPI/ImReady", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ActorAPIServer is the server API for ActorAPI service.
-// All implementations must embed UnimplementedActorAPIServer
+// UserAPIServer is the server API for UserAPI service.
+// All implementations must embed UnimplementedUserAPIServer
 // for forward compatibility
-type ActorAPIServer interface {
+type UserAPIServer interface {
 	ImReady(context.Context, *empty.Empty) (*empty.Empty, error)
-	mustEmbedUnimplementedActorAPIServer()
+	mustEmbedUnimplementedUserAPIServer()
 }
 
-// UnimplementedActorAPIServer must be embedded to have forward compatible implementations.
-type UnimplementedActorAPIServer struct {
+// UnimplementedUserAPIServer must be embedded to have forward compatible implementations.
+type UnimplementedUserAPIServer struct {
 }
 
-func (UnimplementedActorAPIServer) ImReady(context.Context, *empty.Empty) (*empty.Empty, error) {
+func (UnimplementedUserAPIServer) ImReady(context.Context, *empty.Empty) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ImReady not implemented")
 }
-func (UnimplementedActorAPIServer) mustEmbedUnimplementedActorAPIServer() {}
+func (UnimplementedUserAPIServer) mustEmbedUnimplementedUserAPIServer() {}
 
-// UnsafeActorAPIServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ActorAPIServer will
+// UnsafeUserAPIServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to UserAPIServer will
 // result in compilation errors.
-type UnsafeActorAPIServer interface {
-	mustEmbedUnimplementedActorAPIServer()
+type UnsafeUserAPIServer interface {
+	mustEmbedUnimplementedUserAPIServer()
 }
 
-func RegisterActorAPIServer(s *grpc.Server, srv ActorAPIServer) {
-	s.RegisterService(&_ActorAPI_serviceDesc, srv)
+func RegisterUserAPIServer(s *grpc.Server, srv UserAPIServer) {
+	s.RegisterService(&_UserAPI_serviceDesc, srv)
 }
 
-func _ActorAPI_ImReady_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _UserAPI_ImReady_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(empty.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ActorAPIServer).ImReady(ctx, in)
+		return srv.(UserAPIServer).ImReady(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.ActorAPI/ImReady",
+		FullMethod: "/api.UserAPI/ImReady",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ActorAPIServer).ImReady(ctx, req.(*empty.Empty))
+		return srv.(UserAPIServer).ImReady(ctx, req.(*empty.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-var _ActorAPI_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "api.ActorAPI",
-	HandlerType: (*ActorAPIServer)(nil),
+var _UserAPI_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "api.UserAPI",
+	HandlerType: (*UserAPIServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "ImReady",
-			Handler:    _ActorAPI_ImReady_Handler,
+			Handler:    _UserAPI_ImReady_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

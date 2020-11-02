@@ -75,8 +75,8 @@ service MessageAPI {
     rpc Watch(Key) returns (stream Message);
 }
 
-message ID {
-    string id = 1;
+message Name {
+    string name = 1;
 }
 
 message Role {
@@ -84,7 +84,7 @@ message Role {
 }
 
 message Actor {
-    string id = 1;
+    string name = 1;
     string role = 2;
     bool readiness = 3;
     Status status = 4;
@@ -95,14 +95,14 @@ message Result {
 }
 
 service DirectorAPI {
-    rpc GetActorWithID(ID) returns (Actor);
+    rpc GetActorWithName(Name) returns (Actor);
     rpc GetActorsWithRole(Role) returns (stream Actor); 
     rpc GetAllActors(google.protobuf.Empty) returns (stream Actor);
     rpc PutResult(Result) returns (google.protobuf.Empty);
 }
 
 message User {
-    string id = 1;
+    string name = 1;
     string token = 2;
     Character character = 3;
     string role = 4;
@@ -111,11 +111,11 @@ message User {
 }
 
 service OperatorAPI {
-    rpc SetUserStatusUnknown(ID) returns (google.protobuf.Empty);
-    rpc SetUserStatusRunning(ID) returns (google.protobuf.Empty);
-    rpc SetUserStatusFailed(ID) returns (google.protobuf.Empty);
+    rpc SetUserStatusUnknown(Name) returns (google.protobuf.Empty);
+    rpc SetUserStatusRunning(Name) returns (google.protobuf.Empty);
+    rpc SetUserStatusFailed(Name) returns (google.protobuf.Empty);
 }
 
-service ActorAPI {
+service UserAPI {
     rpc ImReady(google.protobuf.Empty) returns (google.protobuf.Empty);
 }

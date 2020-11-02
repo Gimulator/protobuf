@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\006go/api',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0bproto.proto\x12\x03\x61pi\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"4\n\x03Key\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\tnamespace\x18\x03 \x01(\t\"x\n\x04Meta\x12\r\n\x05owner\x18\x01 \x01(\t\x12\x30\n\x0c\x63reationTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12!\n\tcharacter\x18\x03 \x01(\x0e\x32\x0e.api.Character\x12\x0c\n\x04role\x18\x04 \x01(\t\"J\n\x07Message\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\t\x12\x15\n\x03key\x18\x02 \x01(\x0b\x32\x08.api.Key\x12\x17\n\x04meta\x18\x03 \x01(\x0b\x32\t.api.Meta\"\x10\n\x02ID\x12\n\n\x02id\x18\x01 \x01(\t\"\x14\n\x04Role\x12\x0c\n\x04role\x18\x01 \x01(\t\"Q\n\x05\x41\x63tor\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04role\x18\x02 \x01(\t\x12\x11\n\treadiness\x18\x03 \x01(\x08\x12\x1b\n\x06status\x18\x04 \x01(\x0e\x32\x0b.api.Status\"\x08\n\x06Result\"\x82\x01\n\x04User\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05token\x18\x02 \x01(\t\x12!\n\tcharacter\x18\x03 \x01(\x0e\x32\x0e.api.Character\x12\x0c\n\x04role\x18\x04 \x01(\t\x12\x11\n\treadiness\x18\x05 \x01(\x08\x12\x1b\n\x06status\x18\x06 \x01(\x0e\x32\x0b.api.Status*T\n\tCharacter\x12\x14\n\x10unknownCharacter\x10\x00\x12\x0c\n\x08\x64irector\x10\x01\x12\t\n\x05\x61\x63tor\x10\x02\x12\x0c\n\x08operator\x10\x03\x12\n\n\x06master\x10\x04*\x85\x02\n\x06Method\x12\x11\n\runknownMethod\x10\x00\x12\x07\n\x03Get\x10\x01\x12\n\n\x06GetAll\x10\x02\x12\x07\n\x03Put\x10\x03\x12\n\n\x06\x44\x65lete\x10\x04\x12\r\n\tDeleteAll\x10\x05\x12\t\n\x05Watch\x10\x06\x12\x18\n\x14SetUserStatusUnknown\x10\x07\x12\x18\n\x14SetUserStatusRunning\x10\x08\x12\x17\n\x13SetUserStatusFailed\x10\t\x12\x12\n\x0eGetActorWithID\x10\n\x12\x15\n\x11GetActorsWithRole\x10\x0b\x12\x10\n\x0cGetAllActors\x10\x0c\x12\r\n\tPutResult\x10\r\x12\x0b\n\x07ImReady\x10\x0e*A\n\x06Status\x12\x11\n\runknownStatus\x10\x00\x12\x0b\n\x07unknown\x10\x01\x12\x0b\n\x07running\x10\x02\x12\n\n\x06\x66\x61iled\x10\x03\x32\xfa\x01\n\nMessageAPI\x12\x1d\n\x03Get\x12\x08.api.Key\x1a\x0c.api.Message\x12\"\n\x06GetAll\x12\x08.api.Key\x1a\x0c.api.Message0\x01\x12+\n\x03Put\x12\x0c.api.Message\x1a\x16.google.protobuf.Empty\x12*\n\x06\x44\x65lete\x12\x08.api.Key\x1a\x16.google.protobuf.Empty\x12-\n\tDeleteAll\x12\x08.api.Key\x1a\x16.google.protobuf.Empty\x12!\n\x05Watch\x12\x08.api.Key\x1a\x0c.api.Message0\x01\x32\xca\x01\n\x0b\x44irectorAPI\x12%\n\x0eGetActorWithID\x12\x07.api.ID\x1a\n.api.Actor\x12,\n\x11GetActorsWithRole\x12\t.api.Role\x1a\n.api.Actor0\x01\x12\x34\n\x0cGetAllActors\x12\x16.google.protobuf.Empty\x1a\n.api.Actor0\x01\x12\x30\n\tPutResult\x12\x0b.api.Result\x1a\x16.google.protobuf.Empty2\xb7\x01\n\x0bOperatorAPI\x12\x37\n\x14SetUserStatusUnknown\x12\x07.api.ID\x1a\x16.google.protobuf.Empty\x12\x37\n\x14SetUserStatusRunning\x12\x07.api.ID\x1a\x16.google.protobuf.Empty\x12\x36\n\x13SetUserStatusFailed\x12\x07.api.ID\x1a\x16.google.protobuf.Empty2E\n\x08\x41\x63torAPI\x12\x39\n\x07ImReady\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.EmptyB\x08Z\x06go/apib\x06proto3'
+  serialized_pb=b'\n\x0bproto.proto\x12\x03\x61pi\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"4\n\x03Key\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\tnamespace\x18\x03 \x01(\t\"x\n\x04Meta\x12\r\n\x05owner\x18\x01 \x01(\t\x12\x30\n\x0c\x63reationTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12!\n\tcharacter\x18\x03 \x01(\x0e\x32\x0e.api.Character\x12\x0c\n\x04role\x18\x04 \x01(\t\"J\n\x07Message\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\t\x12\x15\n\x03key\x18\x02 \x01(\x0b\x32\x08.api.Key\x12\x17\n\x04meta\x18\x03 \x01(\x0b\x32\t.api.Meta\"\x14\n\x04Name\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x14\n\x04Role\x12\x0c\n\x04role\x18\x01 \x01(\t\"S\n\x05\x41\x63tor\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04role\x18\x02 \x01(\t\x12\x11\n\treadiness\x18\x03 \x01(\x08\x12\x1b\n\x06status\x18\x04 \x01(\x0e\x32\x0b.api.Status\"\x08\n\x06Result\"\x84\x01\n\x04User\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05token\x18\x02 \x01(\t\x12!\n\tcharacter\x18\x03 \x01(\x0e\x32\x0e.api.Character\x12\x0c\n\x04role\x18\x04 \x01(\t\x12\x11\n\treadiness\x18\x05 \x01(\x08\x12\x1b\n\x06status\x18\x06 \x01(\x0e\x32\x0b.api.Status*T\n\tCharacter\x12\x14\n\x10unknownCharacter\x10\x00\x12\x0c\n\x08\x64irector\x10\x01\x12\t\n\x05\x61\x63tor\x10\x02\x12\x0c\n\x08operator\x10\x03\x12\n\n\x06master\x10\x04*\x85\x02\n\x06Method\x12\x11\n\runknownMethod\x10\x00\x12\x07\n\x03Get\x10\x01\x12\n\n\x06GetAll\x10\x02\x12\x07\n\x03Put\x10\x03\x12\n\n\x06\x44\x65lete\x10\x04\x12\r\n\tDeleteAll\x10\x05\x12\t\n\x05Watch\x10\x06\x12\x18\n\x14SetUserStatusUnknown\x10\x07\x12\x18\n\x14SetUserStatusRunning\x10\x08\x12\x17\n\x13SetUserStatusFailed\x10\t\x12\x12\n\x0eGetActorWithID\x10\n\x12\x15\n\x11GetActorsWithRole\x10\x0b\x12\x10\n\x0cGetAllActors\x10\x0c\x12\r\n\tPutResult\x10\r\x12\x0b\n\x07ImReady\x10\x0e*A\n\x06Status\x12\x11\n\runknownStatus\x10\x00\x12\x0b\n\x07unknown\x10\x01\x12\x0b\n\x07running\x10\x02\x12\n\n\x06\x66\x61iled\x10\x03\x32\xfa\x01\n\nMessageAPI\x12\x1d\n\x03Get\x12\x08.api.Key\x1a\x0c.api.Message\x12\"\n\x06GetAll\x12\x08.api.Key\x1a\x0c.api.Message0\x01\x12+\n\x03Put\x12\x0c.api.Message\x1a\x16.google.protobuf.Empty\x12*\n\x06\x44\x65lete\x12\x08.api.Key\x1a\x16.google.protobuf.Empty\x12-\n\tDeleteAll\x12\x08.api.Key\x1a\x16.google.protobuf.Empty\x12!\n\x05Watch\x12\x08.api.Key\x1a\x0c.api.Message0\x01\x32\xce\x01\n\x0b\x44irectorAPI\x12)\n\x10GetActorWithName\x12\t.api.Name\x1a\n.api.Actor\x12,\n\x11GetActorsWithRole\x12\t.api.Role\x1a\n.api.Actor0\x01\x12\x34\n\x0cGetAllActors\x12\x16.google.protobuf.Empty\x1a\n.api.Actor0\x01\x12\x30\n\tPutResult\x12\x0b.api.Result\x1a\x16.google.protobuf.Empty2\xbd\x01\n\x0bOperatorAPI\x12\x39\n\x14SetUserStatusUnknown\x12\t.api.Name\x1a\x16.google.protobuf.Empty\x12\x39\n\x14SetUserStatusRunning\x12\t.api.Name\x1a\x16.google.protobuf.Empty\x12\x38\n\x13SetUserStatusFailed\x12\t.api.Name\x1a\x16.google.protobuf.Empty2D\n\x07UserAPI\x12\x39\n\x07ImReady\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.EmptyB\x08Z\x06go/apib\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,])
 
@@ -61,8 +61,8 @@ _CHARACTER = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=600,
-  serialized_end=684,
+  serialized_start=608,
+  serialized_end=692,
 )
 _sym_db.RegisterEnumDescriptor(_CHARACTER)
 
@@ -152,8 +152,8 @@ _METHOD = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=687,
-  serialized_end=948,
+  serialized_start=695,
+  serialized_end=956,
 )
 _sym_db.RegisterEnumDescriptor(_METHOD)
 
@@ -188,8 +188,8 @@ _STATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=950,
-  serialized_end=1015,
+  serialized_start=958,
+  serialized_end=1023,
 )
 _sym_db.RegisterEnumDescriptor(_STATUS)
 
@@ -366,16 +366,16 @@ _MESSAGE = _descriptor.Descriptor(
 )
 
 
-_ID = _descriptor.Descriptor(
-  name='ID',
-  full_name='api.ID',
+_NAME = _descriptor.Descriptor(
+  name='Name',
+  full_name='api.Name',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='api.ID.id', index=0,
+      name='name', full_name='api.Name.name', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -394,7 +394,7 @@ _ID = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=334,
-  serialized_end=350,
+  serialized_end=354,
 )
 
 
@@ -425,8 +425,8 @@ _ROLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=352,
-  serialized_end=372,
+  serialized_start=356,
+  serialized_end=376,
 )
 
 
@@ -439,7 +439,7 @@ _ACTOR = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='api.Actor.id', index=0,
+      name='name', full_name='api.Actor.name', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -478,8 +478,8 @@ _ACTOR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=374,
-  serialized_end=455,
+  serialized_start=378,
+  serialized_end=461,
 )
 
 
@@ -503,8 +503,8 @@ _RESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=457,
-  serialized_end=465,
+  serialized_start=463,
+  serialized_end=471,
 )
 
 
@@ -517,7 +517,7 @@ _USER = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='api.User.id', index=0,
+      name='name', full_name='api.User.name', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -570,8 +570,8 @@ _USER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=468,
-  serialized_end=598,
+  serialized_start=474,
+  serialized_end=606,
 )
 
 _META.fields_by_name['creationTime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -584,7 +584,7 @@ _USER.fields_by_name['status'].enum_type = _STATUS
 DESCRIPTOR.message_types_by_name['Key'] = _KEY
 DESCRIPTOR.message_types_by_name['Meta'] = _META
 DESCRIPTOR.message_types_by_name['Message'] = _MESSAGE
-DESCRIPTOR.message_types_by_name['ID'] = _ID
+DESCRIPTOR.message_types_by_name['Name'] = _NAME
 DESCRIPTOR.message_types_by_name['Role'] = _ROLE
 DESCRIPTOR.message_types_by_name['Actor'] = _ACTOR
 DESCRIPTOR.message_types_by_name['Result'] = _RESULT
@@ -615,12 +615,12 @@ Message = _reflection.GeneratedProtocolMessageType('Message', (_message.Message,
   })
 _sym_db.RegisterMessage(Message)
 
-ID = _reflection.GeneratedProtocolMessageType('ID', (_message.Message,), {
-  'DESCRIPTOR' : _ID,
+Name = _reflection.GeneratedProtocolMessageType('Name', (_message.Message,), {
+  'DESCRIPTOR' : _NAME,
   '__module__' : 'proto_pb2'
-  # @@protoc_insertion_point(class_scope:api.ID)
+  # @@protoc_insertion_point(class_scope:api.Name)
   })
-_sym_db.RegisterMessage(ID)
+_sym_db.RegisterMessage(Name)
 
 Role = _reflection.GeneratedProtocolMessageType('Role', (_message.Message,), {
   'DESCRIPTOR' : _ROLE,
@@ -660,8 +660,8 @@ _MESSAGEAPI = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1018,
-  serialized_end=1268,
+  serialized_start=1026,
+  serialized_end=1276,
   methods=[
   _descriptor.MethodDescriptor(
     name='Get',
@@ -736,15 +736,15 @@ _DIRECTORAPI = _descriptor.ServiceDescriptor(
   index=1,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1271,
-  serialized_end=1473,
+  serialized_start=1279,
+  serialized_end=1485,
   methods=[
   _descriptor.MethodDescriptor(
-    name='GetActorWithID',
-    full_name='api.DirectorAPI.GetActorWithID',
+    name='GetActorWithName',
+    full_name='api.DirectorAPI.GetActorWithName',
     index=0,
     containing_service=None,
-    input_type=_ID,
+    input_type=_NAME,
     output_type=_ACTOR,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
@@ -792,15 +792,15 @@ _OPERATORAPI = _descriptor.ServiceDescriptor(
   index=2,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1476,
-  serialized_end=1659,
+  serialized_start=1488,
+  serialized_end=1677,
   methods=[
   _descriptor.MethodDescriptor(
     name='SetUserStatusUnknown',
     full_name='api.OperatorAPI.SetUserStatusUnknown',
     index=0,
     containing_service=None,
-    input_type=_ID,
+    input_type=_NAME,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
@@ -810,7 +810,7 @@ _OPERATORAPI = _descriptor.ServiceDescriptor(
     full_name='api.OperatorAPI.SetUserStatusRunning',
     index=1,
     containing_service=None,
-    input_type=_ID,
+    input_type=_NAME,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
@@ -820,7 +820,7 @@ _OPERATORAPI = _descriptor.ServiceDescriptor(
     full_name='api.OperatorAPI.SetUserStatusFailed',
     index=2,
     containing_service=None,
-    input_type=_ID,
+    input_type=_NAME,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
@@ -831,19 +831,19 @@ _sym_db.RegisterServiceDescriptor(_OPERATORAPI)
 DESCRIPTOR.services_by_name['OperatorAPI'] = _OPERATORAPI
 
 
-_ACTORAPI = _descriptor.ServiceDescriptor(
-  name='ActorAPI',
-  full_name='api.ActorAPI',
+_USERAPI = _descriptor.ServiceDescriptor(
+  name='UserAPI',
+  full_name='api.UserAPI',
   file=DESCRIPTOR,
   index=3,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1661,
-  serialized_end=1730,
+  serialized_start=1679,
+  serialized_end=1747,
   methods=[
   _descriptor.MethodDescriptor(
     name='ImReady',
-    full_name='api.ActorAPI.ImReady',
+    full_name='api.UserAPI.ImReady',
     index=0,
     containing_service=None,
     input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
@@ -852,8 +852,8 @@ _ACTORAPI = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
 ])
-_sym_db.RegisterServiceDescriptor(_ACTORAPI)
+_sym_db.RegisterServiceDescriptor(_USERAPI)
 
-DESCRIPTOR.services_by_name['ActorAPI'] = _ACTORAPI
+DESCRIPTOR.services_by_name['UserAPI'] = _USERAPI
 
 # @@protoc_insertion_point(module_scope)
