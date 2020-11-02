@@ -26,9 +26,7 @@ enum Method {
 	DeleteAll = 5;
     Watch = 6;
 
-	SetUserStatusUnknown = 10;
-	SetUserStatusRunning = 11;
-    SetUserStatusFailed = 12;
+	SetUserStatus = 10;
 
 	GetActors = 20;
     PutResult = 21;

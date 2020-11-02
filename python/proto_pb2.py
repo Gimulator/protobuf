@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\006go/api',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0bproto.proto\x12\x03\x61pi\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"3\n\x06Report\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x1b\n\x06status\x18\x02 \x01(\x0e\x32\x0b.api.Status\"u\n\x04User\x12\x0c\n\x04name\x18\x01 \x01(\t\x12!\n\tcharacter\x18\x03 \x01(\x0e\x32\x0e.api.Character\x12\x0c\n\x04role\x18\x04 \x01(\t\x12\x11\n\treadiness\x18\x05 \x01(\x08\x12\x1b\n\x06status\x18\x06 \x01(\x0e\x32\x0b.api.Status\"\x08\n\x06Result\"4\n\x03Key\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\tnamespace\x18\x03 \x01(\t\"R\n\x04Meta\x12\x18\n\x05owner\x18\x01 \x01(\x0b\x32\t.api.User\x12\x30\n\x0c\x63reationTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"J\n\x07Message\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\t\x12\x15\n\x03key\x18\x02 \x01(\x0b\x32\x08.api.Key\x12\x17\n\x04meta\x18\x03 \x01(\x0b\x32\t.api.Meta*T\n\tCharacter\x12\x14\n\x10unknownCharacter\x10\x00\x12\x0c\n\x08\x64irector\x10\x01\x12\t\n\x05\x61\x63tor\x10\x02\x12\x0c\n\x08operator\x10\x03\x12\n\n\x06master\x10\x04*\xd7\x01\n\x06Method\x12\x11\n\runknownMethod\x10\x00\x12\x07\n\x03Get\x10\x01\x12\n\n\x06GetAll\x10\x02\x12\x07\n\x03Put\x10\x03\x12\n\n\x06\x44\x65lete\x10\x04\x12\r\n\tDeleteAll\x10\x05\x12\t\n\x05Watch\x10\x06\x12\x18\n\x14SetUserStatusUnknown\x10\n\x12\x18\n\x14SetUserStatusRunning\x10\x0b\x12\x17\n\x13SetUserStatusFailed\x10\x0c\x12\r\n\tGetActors\x10\x14\x12\r\n\tPutResult\x10\x15\x12\x0b\n\x07ImReady\x10\x1e*A\n\x06Status\x12\x11\n\runknownStatus\x10\x00\x12\x0b\n\x07unknown\x10\x01\x12\x0b\n\x07running\x10\x02\x12\n\n\x06\x66\x61iled\x10\x03\x32\xfa\x01\n\nMessageAPI\x12\x1d\n\x03Get\x12\x08.api.Key\x1a\x0c.api.Message\x12\"\n\x06GetAll\x12\x08.api.Key\x1a\x0c.api.Message0\x01\x12+\n\x03Put\x12\x0c.api.Message\x1a\x16.google.protobuf.Empty\x12*\n\x06\x44\x65lete\x12\x08.api.Key\x1a\x16.google.protobuf.Empty\x12-\n\tDeleteAll\x12\x08.api.Key\x1a\x16.google.protobuf.Empty\x12!\n\x05Watch\x12\x08.api.Key\x1a\x0c.api.Message0\x01\x32q\n\x0b\x44irectorAPI\x12\x30\n\tGetActors\x12\x16.google.protobuf.Empty\x1a\t.api.User0\x01\x12\x30\n\tPutResult\x12\x0b.api.Result\x1a\x16.google.protobuf.Empty2C\n\x0bOperatorAPI\x12\x34\n\rSetUserStatus\x12\x0b.api.Report\x1a\x16.google.protobuf.Empty2D\n\x07UserAPI\x12\x39\n\x07ImReady\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.EmptyB\x08Z\x06go/apib\x06proto3'
+  serialized_pb=b'\n\x0bproto.proto\x12\x03\x61pi\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"3\n\x06Report\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x1b\n\x06status\x18\x02 \x01(\x0e\x32\x0b.api.Status\"u\n\x04User\x12\x0c\n\x04name\x18\x01 \x01(\t\x12!\n\tcharacter\x18\x03 \x01(\x0e\x32\x0e.api.Character\x12\x0c\n\x04role\x18\x04 \x01(\t\x12\x11\n\treadiness\x18\x05 \x01(\x08\x12\x1b\n\x06status\x18\x06 \x01(\x0e\x32\x0b.api.Status\"\x08\n\x06Result\"4\n\x03Key\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\tnamespace\x18\x03 \x01(\t\"R\n\x04Meta\x12\x18\n\x05owner\x18\x01 \x01(\x0b\x32\t.api.User\x12\x30\n\x0c\x63reationTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"J\n\x07Message\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\t\x12\x15\n\x03key\x18\x02 \x01(\x0b\x32\x08.api.Key\x12\x17\n\x04meta\x18\x03 \x01(\x0b\x32\t.api.Meta*T\n\tCharacter\x12\x14\n\x10unknownCharacter\x10\x00\x12\x0c\n\x08\x64irector\x10\x01\x12\t\n\x05\x61\x63tor\x10\x02\x12\x0c\n\x08operator\x10\x03\x12\n\n\x06master\x10\x04*\x9d\x01\n\x06Method\x12\x11\n\runknownMethod\x10\x00\x12\x07\n\x03Get\x10\x01\x12\n\n\x06GetAll\x10\x02\x12\x07\n\x03Put\x10\x03\x12\n\n\x06\x44\x65lete\x10\x04\x12\r\n\tDeleteAll\x10\x05\x12\t\n\x05Watch\x10\x06\x12\x11\n\rSetUserStatus\x10\n\x12\r\n\tGetActors\x10\x14\x12\r\n\tPutResult\x10\x15\x12\x0b\n\x07ImReady\x10\x1e*A\n\x06Status\x12\x11\n\runknownStatus\x10\x00\x12\x0b\n\x07unknown\x10\x01\x12\x0b\n\x07running\x10\x02\x12\n\n\x06\x66\x61iled\x10\x03\x32\xfa\x01\n\nMessageAPI\x12\x1d\n\x03Get\x12\x08.api.Key\x1a\x0c.api.Message\x12\"\n\x06GetAll\x12\x08.api.Key\x1a\x0c.api.Message0\x01\x12+\n\x03Put\x12\x0c.api.Message\x1a\x16.google.protobuf.Empty\x12*\n\x06\x44\x65lete\x12\x08.api.Key\x1a\x16.google.protobuf.Empty\x12-\n\tDeleteAll\x12\x08.api.Key\x1a\x16.google.protobuf.Empty\x12!\n\x05Watch\x12\x08.api.Key\x1a\x0c.api.Message0\x01\x32q\n\x0b\x44irectorAPI\x12\x30\n\tGetActors\x12\x16.google.protobuf.Empty\x1a\t.api.User0\x01\x12\x30\n\tPutResult\x12\x0b.api.Result\x1a\x16.google.protobuf.Empty2C\n\x0bOperatorAPI\x12\x34\n\rSetUserStatus\x12\x0b.api.Report\x1a\x16.google.protobuf.Empty2D\n\x07UserAPI\x12\x39\n\x07ImReady\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.EmptyB\x08Z\x06go/apib\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,])
 
@@ -110,32 +110,22 @@ _METHOD = _descriptor.EnumDescriptor(
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='SetUserStatusUnknown', index=7, number=10,
+      name='SetUserStatus', index=7, number=10,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='SetUserStatusRunning', index=8, number=11,
+      name='GetActors', index=8, number=20,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='SetUserStatusFailed', index=9, number=12,
+      name='PutResult', index=9, number=21,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='GetActors', index=10, number=20,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='PutResult', index=11, number=21,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='ImReady', index=12, number=30,
+      name='ImReady', index=10, number=30,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
@@ -143,7 +133,7 @@ _METHOD = _descriptor.EnumDescriptor(
   containing_type=None,
   serialized_options=None,
   serialized_start=565,
-  serialized_end=780,
+  serialized_end=722,
 )
 _sym_db.RegisterEnumDescriptor(_METHOD)
 
@@ -178,8 +168,8 @@ _STATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=782,
-  serialized_end=847,
+  serialized_start=724,
+  serialized_end=789,
 )
 _sym_db.RegisterEnumDescriptor(_STATUS)
 
@@ -196,9 +186,7 @@ Put = 3
 Delete = 4
 DeleteAll = 5
 Watch = 6
-SetUserStatusUnknown = 10
-SetUserStatusRunning = 11
-SetUserStatusFailed = 12
+SetUserStatus = 10
 GetActors = 20
 PutResult = 21
 ImReady = 30
@@ -533,8 +521,8 @@ _MESSAGEAPI = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=850,
-  serialized_end=1100,
+  serialized_start=792,
+  serialized_end=1042,
   methods=[
   _descriptor.MethodDescriptor(
     name='Get',
@@ -609,8 +597,8 @@ _DIRECTORAPI = _descriptor.ServiceDescriptor(
   index=1,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1102,
-  serialized_end=1215,
+  serialized_start=1044,
+  serialized_end=1157,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetActors',
@@ -645,8 +633,8 @@ _OPERATORAPI = _descriptor.ServiceDescriptor(
   index=2,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1217,
-  serialized_end=1284,
+  serialized_start=1159,
+  serialized_end=1226,
   methods=[
   _descriptor.MethodDescriptor(
     name='SetUserStatus',
@@ -671,8 +659,8 @@ _USERAPI = _descriptor.ServiceDescriptor(
   index=3,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1286,
-  serialized_end=1354,
+  serialized_start=1228,
+  serialized_end=1296,
   methods=[
   _descriptor.MethodDescriptor(
     name='ImReady',
