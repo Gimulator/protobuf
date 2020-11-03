@@ -56,7 +56,21 @@ message User {
 }
 
 message Result {
+    message Score {
+        string name = 1;
+        string score = 2;
+    }
 
+    enum Status {
+        unknown = 0;
+        success = 1;
+        failed = 2;
+    }
+
+    string id = 1;
+    Status status = 2;
+    string msg = 3;
+    repeated Score score = 4;
 }
 
 message Key {
