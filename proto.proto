@@ -39,7 +39,8 @@ enum Status {
 
     unknown = 1;
     running = 2;
-    failed = 3;
+    succeeded = 3;
+    failed = 4;
 };
 
 message Report {
