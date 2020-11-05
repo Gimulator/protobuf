@@ -71,7 +71,7 @@ message Result {
     string id = 1;
     Status status = 2;
     string msg = 3;
-    repeated Score score = 4;
+    repeated Score scores = 4;
 }
 
 message Key {
