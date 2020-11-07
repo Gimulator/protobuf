@@ -567,7 +567,7 @@ var _OperatorAPI_serviceDesc = grpc.ServiceDesc{
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserAPIClient interface {
 	ImReady(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*empty.Empty, error)
-	SendPong(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*empty.Empty, error)
+	SendPing(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
 type userAPIClient struct {
@@ -587,9 +587,9 @@ func (c *userAPIClient) ImReady(ctx context.Context, in *empty.Empty, opts ...gr
 	return out, nil
 }
 
-func (c *userAPIClient) SendPong(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *userAPIClient) SendPing(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/api.UserAPI/SendPong", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.UserAPI/SendPing", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -601,7 +601,7 @@ func (c *userAPIClient) SendPong(ctx context.Context, in *empty.Empty, opts ...g
 // for forward compatibility
 type UserAPIServer interface {
 	ImReady(context.Context, *empty.Empty) (*empty.Empty, error)
-	SendPong(context.Context, *empty.Empty) (*empty.Empty, error)
+	SendPing(context.Context, *empty.Empty) (*empty.Empty, error)
 	mustEmbedUnimplementedUserAPIServer()
 }
 
@@ -612,8 +612,8 @@ type UnimplementedUserAPIServer struct {
 func (UnimplementedUserAPIServer) ImReady(context.Context, *empty.Empty) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ImReady not implemented")
 }
-func (UnimplementedUserAPIServer) SendPong(context.Context, *empty.Empty) (*empty.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SendPong not implemented")
+func (UnimplementedUserAPIServer) SendPing(context.Context, *empty.Empty) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendPing not implemented")
 }
 func (UnimplementedUserAPIServer) mustEmbedUnimplementedUserAPIServer() {}
 
@@ -646,20 +646,20 @@ func _UserAPI_ImReady_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserAPI_SendPong_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _UserAPI_SendPing_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(empty.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserAPIServer).SendPong(ctx, in)
+		return srv.(UserAPIServer).SendPing(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.UserAPI/SendPong",
+		FullMethod: "/api.UserAPI/SendPing",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserAPIServer).SendPong(ctx, req.(*empty.Empty))
+		return srv.(UserAPIServer).SendPing(ctx, req.(*empty.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -673,8 +673,8 @@ var _UserAPI_serviceDesc = grpc.ServiceDesc{
 			Handler:    _UserAPI_ImReady_Handler,
 		},
 		{
-			MethodName: "SendPong",
-			Handler:    _UserAPI_SendPong_Handler,
+			MethodName: "SendPing",
+			Handler:    _UserAPI_SendPing_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
