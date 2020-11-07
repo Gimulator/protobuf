@@ -114,4 +114,5 @@ service OperatorAPI {
 
 service UserAPI {
     rpc ImReady(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc SendPong (google.protobuf.Empty) returns (google.protobuf.Empty);
 }
