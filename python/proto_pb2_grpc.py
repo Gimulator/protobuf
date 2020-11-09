@@ -401,8 +401,8 @@ class UserAPIStub(object):
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
-        self.SendPing = channel.unary_unary(
-                '/api.UserAPI/SendPing',
+        self.Ping = channel.unary_unary(
+                '/api.UserAPI/Ping',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
@@ -417,7 +417,7 @@ class UserAPIServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def SendPing(self, request, context):
+    def Ping(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -431,8 +431,8 @@ def add_UserAPIServicer_to_server(servicer, server):
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
-            'SendPing': grpc.unary_unary_rpc_method_handler(
-                    servicer.SendPing,
+            'Ping': grpc.unary_unary_rpc_method_handler(
+                    servicer.Ping,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
@@ -464,7 +464,7 @@ class UserAPI(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def SendPing(request,
+    def Ping(request,
             target,
             options=(),
             channel_credentials=None,
@@ -474,7 +474,7 @@ class UserAPI(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/api.UserAPI/SendPing',
+        return grpc.experimental.unary_unary(request, target, '/api.UserAPI/Ping',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
