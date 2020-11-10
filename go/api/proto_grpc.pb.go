@@ -178,7 +178,7 @@ type UnsafeMessageAPIServer interface {
 	mustEmbedUnimplementedMessageAPIServer()
 }
 
-func RegisterMessageAPIServer(s grpc.ServiceRegistrar, srv MessageAPIServer) {
+func RegisterMessageAPIServer(s *grpc.Server, srv MessageAPIServer) {
 	s.RegisterService(&_MessageAPI_serviceDesc, srv)
 }
 
@@ -417,7 +417,7 @@ type UnsafeDirectorAPIServer interface {
 	mustEmbedUnimplementedDirectorAPIServer()
 }
 
-func RegisterDirectorAPIServer(s grpc.ServiceRegistrar, srv DirectorAPIServer) {
+func RegisterDirectorAPIServer(s *grpc.Server, srv DirectorAPIServer) {
 	s.RegisterService(&_DirectorAPI_serviceDesc, srv)
 }
 
@@ -527,7 +527,7 @@ type UnsafeOperatorAPIServer interface {
 	mustEmbedUnimplementedOperatorAPIServer()
 }
 
-func RegisterOperatorAPIServer(s grpc.ServiceRegistrar, srv OperatorAPIServer) {
+func RegisterOperatorAPIServer(s *grpc.Server, srv OperatorAPIServer) {
 	s.RegisterService(&_OperatorAPI_serviceDesc, srv)
 }
 
@@ -624,7 +624,7 @@ type UnsafeUserAPIServer interface {
 	mustEmbedUnimplementedUserAPIServer()
 }
 
-func RegisterUserAPIServer(s grpc.ServiceRegistrar, srv UserAPIServer) {
+func RegisterUserAPIServer(s *grpc.Server, srv UserAPIServer) {
 	s.RegisterService(&_UserAPI_serviceDesc, srv)
 }
 
