@@ -19,19 +19,20 @@ enum Character {
 enum Method {
     unknownMethod = 0;
 
-	Get = 1;
-	GetAll = 2;
-	Put = 3;
-	Delete = 4;
-	DeleteAll = 5;
-    Watch = 6;
+	get = 1;
+	getAll = 2;
+	put = 3;
+	delete = 4;
+	deleteAll = 5;
+    watch = 6;
 
-	SetUserStatus = 10;
+	setUserStatus = 10;
 
-	GetActors = 20;
-    PutResult = 21;
+	getActors = 20;
+    putResult = 21;
 
-	ImReady = 30;
+    imReady = 30;
+    ping = 31;
 }
 
 enum Status {
