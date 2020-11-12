@@ -60,7 +60,7 @@ message User {
 message Result {
     message Score {
         string name = 1;
-        string score = 2;
+        int32 score = 2;
     }
 
     enum Status {
